@@ -4,8 +4,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
+	/**
+	 * 
+	 * @param name 名字
+	 * @return
+	 */
 	@RequestMapping("/hello")
-	public String sayHello(String name) {
+	public String sayHello(String name) {		
 		return "Hello"+name+"!";
 	}
 }
