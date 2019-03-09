@@ -35,7 +35,7 @@ public class ScheduleTaskConfig implements SchedulingConfigurer {
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
         this.scheduledTaskRegistrar = scheduledTaskRegistrar;
-        initTask();
+        //initTask();
     }
     /**
      * 初始化已配置任务
@@ -113,17 +113,17 @@ public class ScheduleTaskConfig implements SchedulingConfigurer {
      * @param interval
      */
     private ScheduledTask addFixedRateTask(Runnable task, long interval) {
-        return scheduledTaskRegistrar.scheduleFixedRateTask(new IntervalTask(task, interval, 0L));
+        return scheduledTaskRegistrar.scheduleFixedRateTask(new FixedRateTask(task, interval, 0L));
     }
  
     /**
-     * 设置延迟以固定频率执行的定时任务
+     * 设置延迟以固定频率执行的定时任务ß
      * @param task
      * @param interval
      * @param delay
      */
     private ScheduledTask addFixedDelayTask(Runnable task, long interval, long delay) {
-        return scheduledTaskRegistrar.scheduleFixedDelayTask(new IntervalTask(task, interval, delay));
+        return scheduledTaskRegistrar.scheduleFixedDelayTask(new FixedDelayTask(task, interval, delay));
     }
     /**
      * 改变任务执行频率
