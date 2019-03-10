@@ -1,4 +1,4 @@
-package com.sun.taskservice;
+package com.sun.tasktype;
 
 import com.sun.taskconfig.TaskType;
 

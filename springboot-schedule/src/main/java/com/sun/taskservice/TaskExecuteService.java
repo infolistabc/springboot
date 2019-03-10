@@ -7,7 +7,7 @@ import org.springframework.util.StringUtils;
 import com.sun.taskconfig.TaskType;
 import com.sun.tasktype.BaseCronTask;
 import com.sun.tasktype.BaseFixedTask;
-import com.sun.tasktype.ScheduleBaseService;
+import com.sun.tasktype.TaskDto;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

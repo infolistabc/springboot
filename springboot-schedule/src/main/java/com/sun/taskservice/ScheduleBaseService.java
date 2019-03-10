@@ -1,9 +1,10 @@
-package com.sun.tasktype;
+package com.sun.taskservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sun.taskconfig.ScheduleTaskConfig;
+import com.sun.tasktype.BaseTask;
 /**
  * 
  * @author wilson

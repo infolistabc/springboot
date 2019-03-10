@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sun.taskconfig.TaskType;
-import com.sun.taskservice.TaskDto;
 import com.sun.taskservice.TaskExecuteService;
+import com.sun.tasktype.TaskDto;
 
 /**
  * 提供外部接口修改定时器的信息
