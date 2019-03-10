@@ -25,10 +25,10 @@ public class InitTask implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     private TaskExecuteService taskExecuteService;
     @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
+   public void onApplicationEvent(ContextRefreshedEvent event) {
     	List <TaskDto> list = new ArrayList();   	   	
     	TaskDto task2 = new TaskDto();
-    	task2.setBusinessId("任务二");
+    	task2.setBusinessId("任务一");
     	task2.setExpression("0/10 * * * * ?");
     	task2.setTaskId("98765");
     	task2.setTaskType(TaskType.TRIGGER);
@@ -37,5 +37,5 @@ public class InitTask implements ApplicationListener<ContextRefreshedEvent> {
     	if (!CollectionUtils.isEmpty(list)) {
     		list.forEach(task -> taskExecuteService.addTask(task));
         }
-    }
+   }
 }

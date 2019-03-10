@@ -9,7 +9,8 @@ import java.util.Map;
 import com.sun.tasktype.BaseTask;
 
 /**
- * 缓存任务信息
+ * 缓存任务信息类
+ * 
  * @author 钱善良 2018/09/18
  *
  */

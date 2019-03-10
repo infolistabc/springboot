@@ -186,7 +186,7 @@ public class ScheduleTaskConfig implements SchedulingConfigurer {
 	 * 
 	 * @param taskId
 	 * @param expression
-	 * @return
+	 * @return  修改成功返回SUCCESS
 	 */
 	public String changeTask(String taskId, String expression) {
 		BaseTask baseTask = BaseTaskConfig.getTask(taskId);
@@ -199,10 +199,10 @@ public class ScheduleTaskConfig implements SchedulingConfigurer {
 	}
 
 	/**
-	 * 取消定时任务
+	 * 在缓存配置类中取消定时任务
 	 * 
 	 * @param taskId
-	 * @return
+	 * @return  取消成功返回success
 	 */
 	public String cancelTask(String taskId) {
 		if (!BaseTaskConfig.containsTask(taskId)) {
