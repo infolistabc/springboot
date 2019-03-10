@@ -13,18 +13,18 @@ import com.sun.tasktype.BaseTask;
  * @author 钱善良 2018/09/18
  *
  */
-public abstract class TaskConfig {
+public abstract class BaseTaskConfig {
     /**
      * 定义一个Map集合存储定时任务
      */
-    private static final Map<String, BaseTask> tasks = new HashMap<>();
+    private static final Map<String, BaseTask> TASKS = new HashMap<>();
 
     /**
      * 获取全部任务列表
      * @return
      */
     public static List<BaseTask> getTasks() {
-        return new ArrayList<>(tasks.values());
+        return new ArrayList<>(TASKS.values());
     }
 
     /**
@@ -33,7 +33,7 @@ public abstract class TaskConfig {
      */
     public static void addTask(BaseTask baseTask) {
         if (baseTask != null) {
-            tasks.put(baseTask.getId(), baseTask);
+            TASKS.put(baseTask.getId(), baseTask);
         }
     }
 
@@ -43,7 +43,7 @@ public abstract class TaskConfig {
      * @return
      */
     static boolean containsTask(String taskId) {
-        return tasks.containsKey(taskId);
+        return TASKS.containsKey(taskId);
     }
 
     /**
@@ -52,7 +52,7 @@ public abstract class TaskConfig {
      * @return
      */
     static BaseTask getTask(String taskId) {
-        return tasks.get(taskId);
+        return TASKS.get(taskId);
     }
      /**
       * 根据任务Id删除任务
@@ -60,6 +60,6 @@ public abstract class TaskConfig {
       * @return
       */
     static BaseTask removeTask(String taskId) {
-        return tasks.remove(taskId);
+        return TASKS.remove(taskId);
     }
 }

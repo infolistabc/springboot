@@ -4,7 +4,7 @@ import com.sun.taskconfig.TaskType;
 
 /**
  * 任务的实体类
- * 
+ * @author wilson
  */
 public class TaskDto {
 

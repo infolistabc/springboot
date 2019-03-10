@@ -13,15 +13,15 @@ import java.util.Map;
 /**
  * 执行调用定时任务的回调地址
  * 可以约定定时任务的回执报文，便于进一步解析
- * littlehow 2018/4/7
+ * @author wilson
  */
 @Service
 public class CallbackExecuteService {
-    private final static Logger log = LoggerFactory.getLogger(CallbackExecuteService.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(CallbackExecuteService.class);
     /**
      * 缓存任务与回调之间的关系
      */
-    private static final Map<String, String> callbackInfo = new HashMap<>();
+    private static final Map<String, String> CALLBACKINFO = new HashMap<>();
 
     /**
      * http任务处理接口
@@ -33,9 +33,9 @@ public class CallbackExecuteService {
      * @param taskId
      */
     public void execute(String taskId) {
-        String url = callbackInfo.get(taskId);
+        String url = CALLBACKINFO.get(taskId);
         if (url == null) {
-            log.error("任务[" + taskId + "]的回调地址为空");
+            LOGGER.error("任务[" + taskId + "]的回调地址为空");
             //FIXME 可以在此处加上监控或通知，也可以已异常的形式抛出，用aop同一处理
             return;
         }
@@ -44,13 +44,13 @@ public class CallbackExecuteService {
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
             if (response.getStatusCodeValue() >= 200 && response.getStatusCodeValue() <300) {
                 //成功
-                log.info("定时任务[" + taskId + "]调用完成"+ new Date());
+                LOGGER.info("定时任务[" + taskId + "]调用完成"+ new Date());
             } else {
                 //失败
-                log.error("任务[" + taskId + ":" + url + "]执行失败," + response.toString());
+                LOGGER.error("任务[" + taskId + ":" + url + "]执行失败," + response.toString());
             }
         } catch (Throwable t) {
-            log.error("任务[" + taskId + ":" + url + "]执行异常", t);
+            LOGGER.error("任务[" + taskId + ":" + url + "]执行异常", t);
             //FIXME 可以在此处加上监控或通知，也可以抛出此部分异常，用aop同一处理
         }
     }
@@ -61,7 +61,7 @@ public class CallbackExecuteService {
      * @param callbackUrl
      */
     static String addOrUpdateTask(String taskId, String callbackUrl) {
-        return callbackInfo.put(taskId, callbackUrl);
+        return CALLBACKINFO.put(taskId, callbackUrl);
     }
 
     /**
@@ -71,6 +71,6 @@ public class CallbackExecuteService {
      */
     static String removeTask(String taskId) {
     	System.out.println("删除回调的缓存"+taskId);
-        return callbackInfo.remove(taskId);
+        return CALLBACKINFO.remove(taskId);
     }
 }

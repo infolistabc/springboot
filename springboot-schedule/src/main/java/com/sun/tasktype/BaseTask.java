@@ -5,12 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.scheduling.config.ScheduledTask;
 
-import com.sun.taskconfig.TaskConfig;
+import com.sun.taskconfig.BaseTaskConfig;
 import com.sun.taskconfig.TaskType;
 
 /**
- *  任务定时器的基本配置类
- * @author Administrator
+ *  任务基础配置类
+ * @Date  2019/03/10
+ * @author qsl
  *
  */
 public abstract class BaseTask implements Runnable,InitializingBean {
@@ -65,9 +66,9 @@ public abstract class BaseTask implements Runnable,InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        TaskConfig.addTask(this);
+        BaseTaskConfig.addTask(this);
     }
-
+    @Override
     public String toString() {
         return this.getClass().getSimpleName() + "(id:" + id + ",expression:" + getExpression()
                 + ",type:" + taskType + ",interval:" + interval()

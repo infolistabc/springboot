@@ -11,7 +11,11 @@ import com.sun.tasktype.ScheduleBaseService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * 任务配置类
+ * @author wilson
+ *
+ */
 @Service
 public class TaskExecuteService {
     @Autowired
@@ -19,13 +23,7 @@ public class TaskExecuteService {
     @Autowired
     private CallbackExecuteService executeService;
     
-    private static final Pattern fixed = Pattern.compile("fixed=(\\d+)\\s*(,\\s*delay=(\\d+))?");
-
-    /**
-     * 新增任务
-     * 因表达式解析错误可能会抛出异常
-     * @param taskDto
-     */
+    private static final Pattern FIXED = Pattern.compile("fixed=(\\d+)\\s*(,\\s*delay=(\\d+))?");
     /**
      * 新增任务
      * @param taskDto 添加任务对象信息必须包含如下字段信息：taskId，callbackUrl，expression，taskType）
@@ -49,7 +47,8 @@ public class TaskExecuteService {
                         executeService.execute(this.getId());
                     }
                 };
-                scheduleBaseService.addTask(baseFixedTask);//执行回调的线程
+              //执行回调的线程
+                scheduleBaseService.addTask(baseFixedTask);
                 break;
             case CRON:
             case TRIGGER:
@@ -62,7 +61,10 @@ public class TaskExecuteService {
                     }
                 };
                 baseCronTask.setExpression(taskDto.getExpression());
-                scheduleBaseService.addTask(baseCronTask);//执行回调的线程
+              //执行回调的线程
+                scheduleBaseService.addTask(baseCronTask);
+                break;
+           default:
         }
     }
     /**
@@ -71,7 +73,7 @@ public class TaskExecuteService {
      * @return
      */
     private static long[] getFixedParameters(String expression) {
-        Matcher matcher = fixed.matcher(expression);
+        Matcher matcher = FIXED.matcher(expression);
         if (matcher.find()) {
             long[] fixedParam = {0L, 0L};
             fixedParam[0] = Long.parseLong(matcher.group(1));
@@ -104,7 +106,9 @@ public class TaskExecuteService {
      * @param taskDto
      */
     public void removeTask(TaskDto taskDto) {
-        scheduleBaseService.removeTask(taskDto.getTaskId());//取消执行的任务
-        CallbackExecuteService.removeTask(taskDto.getTaskId());//取消回调任务，返回key对应的值
+    	//取消执行的任务
+        scheduleBaseService.removeTask(taskDto.getTaskId());
+        //取消回调任务，返回key对应的值
+        CallbackExecuteService.removeTask(taskDto.getTaskId());
     }
 }

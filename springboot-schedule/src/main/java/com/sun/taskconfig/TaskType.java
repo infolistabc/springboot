@@ -5,5 +5,20 @@ package com.sun.taskconfig;
  *
  */
 public enum TaskType {
-    TRIGGER, CRON, FIXED_RATE, FIXED_DELAY
+	/**
+	 * trigger 表达式
+	 */
+    TRIGGER, 
+    /**
+     * cron 表达式
+     */
+    CRON, 
+    /**
+     * fixed_rate  表达式
+     */
+    FIXED_RATE, 
+    /**
+     * fixed_delay  表达式
+     */
+    FIXED_DELAY
 }

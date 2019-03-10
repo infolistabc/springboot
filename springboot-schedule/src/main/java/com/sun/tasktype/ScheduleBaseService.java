@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sun.taskconfig.ScheduleTaskConfig;
-
+/**
+ * 
+ * @author wilson
+ *
+ */
 
 @Component
 public class ScheduleBaseService {

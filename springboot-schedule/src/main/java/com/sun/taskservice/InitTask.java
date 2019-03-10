@@ -17,6 +17,7 @@ import com.sun.taskconfig.TaskType;
  * spring容器初始化完成后，开始初始化任务
  * 容器重启后，原来内存中的任务被销毁，需要再次从
  * 持久化工具中拉取加载如内存
+ * @author wilson
  */
 @Component
 public class InitTask implements ApplicationListener<ContextRefreshedEvent> {

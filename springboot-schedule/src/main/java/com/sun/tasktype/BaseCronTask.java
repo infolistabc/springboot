@@ -22,11 +22,11 @@ public abstract class BaseCronTask extends BaseTask {
     public String getExpression() {
         return expression;
     }
-
+    @Override
     public final long interval() {
         return 0L;
     }
-
+    @Override
     public final long delay() {
         return 0L;
     }
