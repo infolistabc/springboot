@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 
  * @author wilson
- *
+ * @Date 2019-07-23
  */
 @RestController
 public class HelloController {
 	/**
 	 * 
-	 * @param name 名字
+	 * @param name
 	 * @return
 	 */
 	@RequestMapping("/hello")
