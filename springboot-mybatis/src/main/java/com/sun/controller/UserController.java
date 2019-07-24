@@ -1,12 +1,9 @@
 package com.sun.controller;
 
 import java.util.Date;
-
 import javax.annotation.Resource;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sun.entity.User;
 import com.sun.service.IUserService;
 
