@@ -44,5 +44,10 @@ public interface IUserService {
 	 * @return  返回分页的数据对象
 	 */
 	Page<User> getAllByPage(Pageable pageable);
+	/**
+	 * 根据名称查询用户信息
+	 * @param name  用户名
+	 * @return  返回用户对象
+	 */
 	User getUserByName(String name);
 }

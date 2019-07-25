@@ -46,8 +46,4 @@ public class UserServiceImpl implements IUserService{
 	public User getUserByName(String name) {
 		return this.iUserDao.findByName(name);
 	}
-
-	
-	
-	
 }
