@@ -11,9 +11,6 @@ import org.springframework.util.CollectionUtils;
 
 import com.sun.taskconfig.TaskType;
 import com.sun.tasktype.TaskDto;
-
-
-
 /**
  * spring容器初始化完成后，开始初始化任务
  * 容器重启后，原来内存中的任务被销毁，需要再次从
