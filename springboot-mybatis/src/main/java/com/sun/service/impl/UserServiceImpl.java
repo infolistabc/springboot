@@ -1,9 +1,7 @@
 package com.sun.service.impl;
 
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import com.sun.dao.IUserDao;
 import com.sun.entity.User;
 import com.sun.service.IUserService;
