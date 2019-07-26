@@ -56,4 +56,49 @@ public class MailService {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * 发送freemarker模板邮件
+	 * @param from  发送者
+	 * @param to    收件人
+	 * @param cc    抄送人
+	 * @param subject   邮件主题
+	 * @param content   邮件内容
+	 */
+	public void sendFreemarkerMail(String from,String to,String cc,String subject,String content) {
+		try {
+			MimeMessage message = javaMailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message,true);
+			helper.setFrom(from);
+			helper.setTo(to);
+			helper.setCc(cc);
+			helper.setSubject(subject);
+			helper.setText(content,true);
+			javaMailSender.send(message);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 
+	 *发送Thymeleaf模板邮件
+	 * @param from  发送者
+	 * @param to    收件人
+	 * @param cc    抄送人
+	 * @param subject   邮件主题
+	 * @param content   邮件内容
+	 */
+	public void sendHtmlMailThymeleaf(String from,String to,String cc,String subject,String content) {
+		try {
+			MimeMessage message = javaMailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message,true);
+			helper.setFrom(from);
+			helper.setTo(to);
+			helper.setCc(cc);
+			helper.setSubject(subject);
+			helper.setText(content,true);
+			javaMailSender.send(message);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
