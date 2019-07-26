@@ -17,9 +17,9 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan(basePackages = MyBatisConfigOne.PACKAGES, sqlSessionFactoryRef = "masterSqlSessionFactory")
 public class MyBatisConfigOne {
-	//master mapper目录
+	//master dao层目录
     static final String PACKAGES = "com.sun.dao.master";
-
+    //sql配置文件的存放目录
     private static final String MAPPER_LOCAL = "classpath:mybatis/master/*.xml";
 
     @ConfigurationProperties("spring.datasource.druid.master")

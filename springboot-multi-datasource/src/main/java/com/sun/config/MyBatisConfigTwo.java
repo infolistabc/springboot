@@ -12,12 +12,12 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 
-
 @Configuration
 @MapperScan(basePackages = MyBatisConfigTwo.PACKAGES, sqlSessionFactoryRef = "slaveSqlSessionFactory")
 public class MyBatisConfigTwo {
+	//salve dao层目录
 	static final String PACKAGES = "com.sun.dao.slave";
-
+	//sql配置文件的存放目录
     private static final String MAPPER_LOCAL = "classpath:mybatis/slave/*.xml";
 
     @Bean(name = "slaveDataSource")
@@ -38,5 +38,4 @@ public class MyBatisConfigTwo {
         sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCAL));
         return sessionFactoryBean.getObject();
     }
-
 }
