@@ -1,0 +1,9 @@
+server:
+  port: 80
+spring:
+  activemq:
+    broker-url: tcp://10.0.174.158:61616
+    packages:
+      trust-all: true
+    user: admin
+    password: admin
