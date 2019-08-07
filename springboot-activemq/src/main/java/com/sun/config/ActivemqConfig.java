@@ -19,6 +19,9 @@ import javax.jms.Queue;
  */
 @Component
 public class ActivemqConfig {
+	/**
+	 * JmsMessagingTemplate 有Spring提供的JMS消息发送模板，用来快速的发送消息
+	 */
     @Autowired
     JmsMessagingTemplate messagingTemplate;
     @Autowired
@@ -53,6 +56,7 @@ public class ActivemqConfig {
     }
     /**
      * 消费者订阅主题为amq的消息并消费消息
+     * @JmsListener  该注解表示该方法是消息消费者，消息消费者订阅的destination是amq
      * @param msg
      */
     @JmsListener(destination = "amq")

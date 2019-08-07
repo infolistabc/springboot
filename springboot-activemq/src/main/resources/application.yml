@@ -2,7 +2,7 @@ server:
   port: 80
 spring:
   activemq:
-    broker-url: tcp://10.0.174.158:61616
+    broker-url: tcp://10.4.21.42:61616
     packages:
       trust-all: true
     user: admin
