@@ -1,0 +1,10 @@
+server:
+  port: 80
+spring:
+  rabbitmq:
+    host: 10.4.21.42
+    port: 5672
+    username: sun
+    password: hello
+    publisher-confirms: true   #消息确认返回
+    
