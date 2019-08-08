@@ -11,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * 配置全局的CORS配置
+ * 如果只是某个方法进行跨域使用@CrossOrigin这个注解，可以作用在类和方法上
+ * 例如：@CrossOrigin(origins = "http://domain2.com")
  * @author wilson
  *
  */
