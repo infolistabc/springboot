@@ -33,7 +33,7 @@ public class FanoutConfig {
 		return new Queue("queue-two");
 	}
 	 /**
-     * 配置交换器和队列绑定
+     * 交换器绑定第一个队列
      * @return
      */
 	@Bean
@@ -41,7 +41,7 @@ public class FanoutConfig {
 		return BindingBuilder.bind(queueOne()).to(fanoutExchange());
 	}
 	 /**
-     * 配置交换器和队列绑定
+     * 交换器绑定第二个队列
      * @return
      */
 	@Bean

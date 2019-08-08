@@ -9,12 +9,13 @@ import org.springframework.context.annotation.Configuration;
 /**
  * rabbitmq直连模式（direct）配置类
  * DirectExchange和Binding可以省略
+ * 发送的消息对象和消费者的消费对象要一致
  * @author wilson
  *
  */
 @Configuration
 public class DirectConfig {
-	//队列的名称
+	//交换器的名称
 	public final static String DIRECTNAME = "sang-direct";
 	/**
 	 * 配置Queue实例
