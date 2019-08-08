@@ -5,5 +5,14 @@ spring:
     host: smtp.qq.com
     port: 587
     username: 2481891283@qq.com
-    password: cgwiozlslqtadjaa  #授权码
-    default-encoding: UTF-8      
+    password: kttqdbhikjnqecae  #授权码
+    default-encoding: UTF-8     
+  boot:
+    admin:
+      notify:
+        mail:
+          from: 2481891283@qq.com
+          to: 15820106290@163.com
+          ignore-changes:
+          - UP
+          
