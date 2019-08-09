@@ -40,7 +40,7 @@ public class DirectConfig {
      */
     @Bean
     public Binding binding() {
-        return BindingBuilder.bind(queue())
-                .to(directExchange()).withQueueName();
+    	return BindingBuilder.bind(queue())
+                .to(directExchange()).with("direct");
     }
 }

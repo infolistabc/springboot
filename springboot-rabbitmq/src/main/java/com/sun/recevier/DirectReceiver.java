@@ -1,6 +1,7 @@
 package com.sun.recevier;
 
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import java.util.List;
+
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.context.annotation.Configuration;
 /**
@@ -10,14 +11,13 @@ import org.springframework.context.annotation.Configuration;
  *
  */
 @Configuration
-@RabbitListener(queues = "direct-queue")
 public class DirectReceiver {
 	/**
 	 * @RabbitListener  指定该方法是一个消费方法,queues队列的名称
 	 * @param msg  消费信息
 	 */
-	@RabbitHandler
-    public void handler1(String msg) {
-        System.out.println("DirectReceiver:" + msg);
+	@RabbitListener(queues = "direct-queue")
+    public void handler1(List list) {
+        System.out.println("DirectReceiver:" + list);
     }
 }

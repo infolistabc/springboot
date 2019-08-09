@@ -2,7 +2,7 @@ server:
   port: 80
 spring:
   rabbitmq:
-    host: 10.4.21.42
+    host: 127.0.0.1
     port: 5672
     username: sun
     password: hello
