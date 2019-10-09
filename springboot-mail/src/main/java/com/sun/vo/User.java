@@ -1,5 +1,9 @@
 package com.sun.vo;
-
+/**
+ * 
+ * @author wilson
+ *
+ */
 public class User {
 	private String username;
 	private String gender;
