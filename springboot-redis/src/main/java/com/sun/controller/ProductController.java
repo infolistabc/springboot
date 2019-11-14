@@ -57,26 +57,35 @@ public class ProductController {
 	public void orderProductMocckDiffUser(String productId) throws Exception {
 		// 加锁
 		long time = System.currentTimeMillis() + TIMEOUT;
-		if (!redisLock.lock(productId, String.valueOf(time))) {
-			throw new Exception("很抱歉，人太多了，换个姿势再试试~~");
-		}
-		// 1.查询该商品库存，为0则活动结束
-		int stockNum = stock.get(productId);
-		if (stockNum == 0) {
-			throw new Exception("活动结束");
-		} else {
-			// 2.下单
-			orders.put(RedisLock.getUniqueKey(), productId);
-			// 3.减库存
-			stockNum = stockNum - 1;// 不做处理的话，高并发下会出现超卖的情况，下单数，大于减库存的情况。虽然这里减了，但由于并发，减的库存还没存到map中去。新的并发拿到的是原来的库存
-			try {
-				Thread.sleep(100);// 模拟减库存的处理时间
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		try {
+			if (!redisLock.lock(productId, String.valueOf(time))) {
+				//throw new Exception("很抱歉，人太多了，换个姿势再试试~~");
+				System.out.println("很抱歉，人太多了，换个姿势再试试~~");
 			}
-			stock.put(productId, stockNum);
+			// 1.查询该商品库存，为0则活动结束
+			int stockNum = stock.get(productId);
+			if (stockNum == 0) {
+				throw new Exception("活动结束");
+			} else {
+				// 2.下单
+				orders.put(RedisLock.getUniqueKey(), productId);
+				// 3.减库存
+				stockNum = stockNum - 1;// 不做处理的话，高并发下会出现超卖的情况，下单数，大于减库存的情况。虽然这里减了，但由于并发，减的库存还没存到map中去。新的并发拿到的是原来的库存
+				try {
+					Thread.sleep(100);// 模拟减库存的处理时间
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				stock.put(productId, stockNum);
+				System.out.println("HHHHHHH"+stockNum);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// 解锁
+			redisLock.unlock(productId, String.valueOf(time));
 		}
-		// 解锁
-		redisLock.unlock(productId, String.valueOf(time));
+
 	}
 }

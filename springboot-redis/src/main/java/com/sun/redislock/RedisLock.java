@@ -2,6 +2,7 @@ package com.sun.redislock;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,6 @@ public class RedisLock {
 	private DefaultRedisScript<Long> redisScript;
 
 	private static final Long RELEASE_SUCCESS = 1L;
-
 	/**
 	 * 加锁
 	 * 
@@ -34,7 +34,6 @@ public class RedisLock {
 			// 可以成功设置,也就是key不存在
 			return true;
 		}
-
 		// 判断锁超时 - 防止原来的操作异常，没有运行解锁操作 防止死锁
 		String currentValue = stringRedisTemplate.opsForValue().get(key);
 		// 如果锁过期
@@ -47,6 +46,33 @@ public class RedisLock {
 			if (!StringUtils.isEmpty(oldValue) && oldValue.equals(currentValue)) {
 				// oldValue不为空且oldValue等于currentValue，也就是校验是不是上个对应的商品时间戳，也是防止并发
 				return true;
+			}
+		}
+		return false;
+	}
+	/**
+	 * 
+	 * @param key  锁key值
+	 * @param value 锁对应的value
+	 * @param expireTime 锁的有效期，单位秒
+	 * @param retryTimes 重试次数。 默认为0，不尝试竞争锁
+	 * @param retryInterval 重试间隔，单位毫秒
+	 * @return
+	 */
+	public boolean lock(String key,String value,long expireTime,int retryTimes,long retryInterval) {
+		while(true) {
+			boolean result = stringRedisTemplate.opsForValue().setIfAbsent(key, value,expireTime,TimeUnit.SECONDS);
+			if(result) {
+				return true;
+			}else if(retryTimes>0) {
+				retryTimes--;
+				try {
+					Thread.sleep(retryInterval);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}else {
+				break;
 			}
 		}
 		return false;
