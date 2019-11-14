@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun.dao.IDemoDao"><!-- 在此定义命名空间 -->
+	<insert id="batchInsert" parameterType="java.util.List">
+    INSERT INTO demo (id,did,name)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+        (#{item.id,jdbcType=BIGINT}, #{item.did,jdbcType=BIGINT}, 
+        #{item.name,jdbcType=VARCHAR})
+    </foreach>
+    ON DUPLICATE KEY UPDATE
+    name = VALUES(name)
+</insert>
+</mapper>
