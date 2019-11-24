@@ -6,7 +6,7 @@ spring:
     # 使用druid数据源
     username: root
     password: wilson443158
-    url: jdbc:mysql://localhost:3306/sc?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/admin?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:                  #连接池配置
@@ -33,5 +33,7 @@ mybatis:
   config-location: classpath:mybatis/mybatis.cfg.xml  #mybatis主配置文件的地址
   mapper-locations: classpath:mybatis/mapper/**/*.xml  #mybatis映射文件的位置
   type-aliases-package: com.sun.entity  #实体对象所在的包
-  
-  
+
+logging:
+    level:
+      com.sun.dao: DEBUG

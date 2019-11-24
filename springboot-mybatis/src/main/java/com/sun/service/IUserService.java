@@ -1,5 +1,8 @@
 package com.sun.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.sun.entity.User;
 
 public interface IUserService {
@@ -9,4 +12,6 @@ public interface IUserService {
 	 * @return
 	 */
 	boolean adduser(User user);
+
+	List<User> queryPage();
 }

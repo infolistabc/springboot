@@ -1,5 +1,8 @@
 package com.sun.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.sun.entity.User;
 /**
  * 
@@ -13,4 +16,6 @@ public interface IUserDao {
 	 * @return
 	 */
 	int addUser(User user);
+
+	ArrayList<User> queryPage(List<Integer> ids);
 }
