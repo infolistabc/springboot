@@ -1,0 +1,10 @@
+server:
+  port: 9060
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-uri: http://localhost:9080/oauth/token_key
+    client:
+      client-id: orderApp
+      client-secret: 12345

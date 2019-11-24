@@ -1,0 +1,9 @@
+server:
+  port: 9080
+spring:
+  datasource:
+    username: root
+    password: wilson443158
+    url: jdbc:mysql://localhost:3306/resource?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
