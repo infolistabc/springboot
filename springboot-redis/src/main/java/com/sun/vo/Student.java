@@ -1,6 +1,8 @@
 package com.sun.vo;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
 	private String sid;
 	private String name;
 	private String sex;
