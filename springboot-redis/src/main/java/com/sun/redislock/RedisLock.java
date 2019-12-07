@@ -3,7 +3,6 @@ package com.sun.redislock;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.StringRedisTemplate;
