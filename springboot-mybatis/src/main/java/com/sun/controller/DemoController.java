@@ -2,6 +2,8 @@ package com.sun.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -33,6 +35,7 @@ public class DemoController {
 		demo2.setName("aaaa");
 		
 		list.add(demo2);
+		List<Long> a = list.stream().map(Demo::getId).collect(Collectors.toList());
 		System.out.println(list);
 		iDemoService.batchInsert(list);
 	}

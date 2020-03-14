@@ -1,17 +1,20 @@
-package com.sun.vo;
+package com.sun.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @author wilson
  */
 @Data
-public class TableInfo {
-   private Integer id;
-   private String column_name;
-   private String column_type;
-   private String is_nullable;
-   private String column_default;
-   private String column_key;
-   private String column_comment;
+public class TableInfo implements Serializable {
+   private String COLUMN_NAME;
+   private String COLUMN_TYPE;
+   private String COLUMN_KEY;
+   private String IS_NULLABLE;
+   private String COLUMN_COMMENT;
+
+   private String TABLE_NAME;
 }
