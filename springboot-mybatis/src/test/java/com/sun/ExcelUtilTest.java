@@ -5,6 +5,7 @@ import com.sun.entity.Table;
 import com.sun.entity.TableInfo;
 import com.sun.service.ITableInfoService;
 import com.sun.utils.ExcelUtil;
+import com.sun.utils.StudentModelListener;
 import com.sun.utils.ToBeanUtil;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -72,6 +73,7 @@ public class ExcelUtilTest {
     }
     @Test
     public void testSimpleRead(){
-        ExcelUtil.simpleRead();
+        String fileName = "/Users/wilson/学生.xlsx";
+        ExcelUtil.simpleRead(fileName,Student.class, new StudentModelListener());
     }
 }

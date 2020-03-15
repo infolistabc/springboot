@@ -2,17 +2,16 @@ package com.sun.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
 import javax.annotation.Resource;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sun.entity.Demo;
 import com.sun.service.IDemoService;
 
+/**
+ * @author wilson
+ */
 @RestController
 public class DemoController {
 	

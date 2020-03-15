@@ -6,10 +6,12 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
+/**
+ * @author wilson
+ */
 @SpringBootApplication
 @MapperScan("com.sun.dao")
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-
+//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 public class MybatisApplication {
     public static void main( String[] args ){
         SpringApplication.run(MybatisApplication.class, args);
