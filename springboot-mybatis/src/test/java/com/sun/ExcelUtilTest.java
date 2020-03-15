@@ -30,7 +30,10 @@ public class ExcelUtilTest {
     @Test
     public void testWrite(){
         List<Student> studentList=new ArrayList<Student>();
-        Student student=new Student("1","张三","2000-01-01");
+        Student student=new Student();
+        student.setNo("1");
+        student.setName("张三");
+        student.setBirthday("2000-01-01");
         studentList.add(student);
         String fileName = "/Users/wilson/学生.xlsx";
         ExcelUtil.write(fileName,"学生信息",Student.class,studentList);
@@ -66,5 +69,9 @@ public class ExcelUtilTest {
         });
         String fileName = "/Users/wilson/测试.xlsx";
         ExcelUtil.repeatedWrite(fileName,"测试",Table.class, allTables.stream().collect(Collectors.toList()));
+    }
+    @Test
+    public void testSimpleRead(){
+        ExcelUtil.simpleRead();
     }
 }

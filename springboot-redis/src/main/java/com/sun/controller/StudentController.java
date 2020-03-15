@@ -20,4 +20,12 @@ public class StudentController {
 		stu.setSex("男");
 		this.redisTemplate.opsForValue().set("xiaoming", stu);
 	}
+	@RequestMapping("/increment")
+	public void increment() {
+		this.redisTemplate.opsForValue().increment("increment", 1);
+	}
+	@RequestMapping("/del")
+	public void del() {
+		this.redisTemplate.delete("increment");
+	}
 }

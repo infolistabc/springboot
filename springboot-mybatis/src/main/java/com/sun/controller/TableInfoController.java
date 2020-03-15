@@ -71,21 +71,7 @@ public class TableInfoController {
             });
 
         try {
-//            response.setContentType("application/vnd.ms-excel");
-//            response.setCharacterEncoding("utf-8");
-//            //String fileName = URLEncoder.encode("视频图库数据库", "UTF-8");
-//            String fileName = "/Users/wilson/测试.xlsx";
-//            ExcelWriter excelWriter = EasyExcel.write(fileName).build();
-//            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-//           for(int i=0;i<allTables.size();i++){
-//            WriteSheet writeSheet = EasyExcel.writerSheet(i, allTables.get(i).get(0).getTableName()).head(Table.class).build();
-//            excelWriter.write(allTables.get(i), writeSheet);
-//
-//
-//          }
-           // excelWriter.finish();
-            String fileName = "/Users/wilson/测试.xlsx";
-            ExcelUtil.repeatedWrite(fileName,"测试",Table.class, allTables.stream().collect(Collectors.toList()));
+        ExcelUtil.exportExcelMultiSheet(response,"测试","测试",Table.class,allTables.stream().collect(Collectors.toList()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,21 +98,13 @@ public class TableInfoController {
     @RequestMapping("/exportExcel")
     public void exportExcel(HttpServletResponse response) throws Exception{
         String fileName="报表";
-        response.setContentType("application/vnd.ms-excel");
-        response.setCharacterEncoding("utf-8");
         // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
-        fileName = URLEncoder.encode(fileName, "UTF-8");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        ExcelWriter excelWriter = EasyExcel.write(response.getOutputStream()).build();
         List<Student> studentList=new ArrayList<Student>();
-        Student student=new Student("1","张三","2000-01-01");
+        Student student=new Student();
+        student.setNo("1");
+        student.setName("张三");
+        student.setBirthday("2000-01-01");
         studentList.add(student);
-        //这里 需要指定写用哪个class去写
-        WriteSheet writeSheet = EasyExcel.writerSheet(0, "学生信息1").head(Student.class).build();
-        excelWriter.write(studentList, writeSheet);
-        writeSheet = EasyExcel.writerSheet(1, "学生信息2").head(Student.class).build();
-        excelWriter.write(studentList, writeSheet);
-        //千万别忘记finish 会帮忙关闭流
-        excelWriter.finish();
+        ExcelUtil.exportExcel(response,fileName,"学生信息1",Student.class,studentList);
     }
 }

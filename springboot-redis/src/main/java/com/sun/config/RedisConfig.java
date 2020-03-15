@@ -33,9 +33,9 @@ public class RedisConfig extends CachingConfigurerSupport {
 	
 
 	@Bean
-	public RedisTemplate<String, String> redisTemplate(LettuceConnectionFactory redisConnectionFactory) {
+	public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory redisConnectionFactory) {
 
-		RedisTemplate<String, String> template = new RedisTemplate<>();
+		RedisTemplate<String, Object> template = new RedisTemplate<>();
 
 		RedisSerializer<String> redisSerializer = new StringRedisSerializer();
 		// 此种序列化方式结果清晰、容易阅读、存储字节少、速度快，所以推荐更换
