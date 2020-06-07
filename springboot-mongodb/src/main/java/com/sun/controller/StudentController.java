@@ -34,6 +34,7 @@ public class StudentController {
         stus.add(stu2);
         //插入数据
         studentDao.insert(stus);
+
         //查询数据
         List<Student> stus2 = studentDao.findAll();
         studentDao.deleteAll();

@@ -30,7 +30,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer{
 	 * 解决跨域问题的解决方案
 	 * @return
 	 */
-	private CorsConfiguration addcorsConfig() {
+	private CorsConfiguration addCorsConfig() {
 	    CorsConfiguration corsConfiguration = new CorsConfiguration();
 	    List<String> list = new ArrayList<>();
 	    list.add("*");
@@ -44,7 +44,7 @@ public class MyWebMvcConfig implements WebMvcConfigurer{
 	  @Bean
 	  public CorsFilter corsFilter() {
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    source.registerCorsConfiguration("/**", addcorsConfig());
+	    source.registerCorsConfiguration("/**", addCorsConfig());
 	    return new CorsFilter(source);
 	  }
 }

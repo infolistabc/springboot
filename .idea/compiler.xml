@@ -2,25 +2,35 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="springboot-mongodb" />
+        <module name="springboot-demo" />
         <module name="springboot-jpa" />
-        <module name="springboot-mybatis" />
         <module name="springboot-activemq" />
+        <module name="springboot-file" />
+        <module name="springboot-mybatis" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="springboot-activemq" target="1.8" />
+      <module name="springboot-demo" target="1.8" />
+      <module name="springboot-file" target="1.8" />
       <module name="springboot-jpa" target="1.8" />
+      <module name="springboot-mongodb" target="1.8" />
       <module name="springboot-mybatis" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="springboot-activemq" options="-parameters" />
+      <module name="springboot-demo" options="-parameters" />
+      <module name="springboot-file" options="-parameters" />
       <module name="springboot-jpa" options="-parameters" />
+      <module name="springboot-mongodb" options="-parameters" />
       <module name="springboot-mybatis" options="-parameters" />
     </option>
   </component>
