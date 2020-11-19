@@ -43,7 +43,18 @@
 		    <artifactId>fastjson</artifactId>
 		    <version>1.2.47</version>
 		</dependency>
-		
+		<!--shedlock依赖-->
+		<dependency>
+			<groupId>net.javacrumbs.shedlock</groupId>
+			<artifactId>shedlock-spring</artifactId>
+			<version>4.9.2</version>
+		</dependency>
+		<!--shedlock实现redis分布式锁-->
+		<dependency>
+			<groupId>net.javacrumbs.shedlock</groupId>
+			<artifactId>shedlock-provider-redis-spring</artifactId>
+			<version>4.9.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

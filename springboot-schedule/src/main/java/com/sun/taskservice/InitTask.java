@@ -23,7 +23,7 @@ public class InitTask implements ApplicationListener<ContextRefreshedEvent> {
     private TaskExecuteService taskExecuteService;
     @Override
    public void onApplicationEvent(ContextRefreshedEvent event) {
-    	List <TaskDto> list = new ArrayList();   	   	
+    	List <TaskDto> list = new ArrayList();
     	TaskDto task2 = new TaskDto();
     	task2.setBusinessId("任务一");
     	task2.setExpression("0/10 * * * * ?");
