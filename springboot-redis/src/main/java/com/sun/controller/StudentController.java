@@ -2,16 +2,23 @@ package com.sun.controller;
 
 import javax.annotation.Resource;
 
+import com.sun.util.UserSignDemo;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sun.vo.Student;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+import java.util.TreeMap;
+
 @RestController
 public class StudentController {
 	@Resource
 	private RedisTemplate<String,Object> redisTemplate;
+
 	@RequestMapping("/test")
 	public void test() {
 		Student stu = new Student();
@@ -28,4 +35,7 @@ public class StudentController {
 	public void del() {
 		this.redisTemplate.delete("increment");
 	}
+
+
+
 }

@@ -12,7 +12,7 @@ public class InitThread {
 	
 	@PostConstruct
     public void init() {
-		System.out.println("-------------启动线程----------------");
+		//System.out.println("-------------启动线程----------------");
 		//redisPushAndPop.asyncTask1();;
     }
 

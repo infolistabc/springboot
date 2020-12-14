@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sun.redislock.RedisLock;
+import com.sun.util.RedisLock;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.Map;
  * Explain:
  */
 @RestController
-public class ProductController {
+public class TestLockController {
 
 	@Autowired
 	private RedisLock redisLock;

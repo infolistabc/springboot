@@ -1,4 +1,4 @@
-package com.sun.redislock;
+package com.sun.util;
 
 import java.util.Arrays;
 import java.util.Random;

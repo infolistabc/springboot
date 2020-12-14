@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sun</groupId>
-	<artifactId>springboot-demo</artifactId>
+	<artifactId>springboot-thread</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<parent>
@@ -13,7 +13,7 @@
 		<version>2.0.4.RELEASE</version>
 	</parent>
 
-	<name>springboot-demo</name>
+	<name>springboot-thread</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
