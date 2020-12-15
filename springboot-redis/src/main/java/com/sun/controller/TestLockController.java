@@ -1,6 +1,8 @@
 package com.sun.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,8 +55,8 @@ public class TestLockController {
 	 * @param productId
 	 * @throws Exception
 	 */
-	@RequestMapping("buy")
-	public void orderProductMocckDiffUser(String productId) throws Exception {
+	@GetMapping("buy")
+	public void orderProductMockDiffUser(String productId) throws Exception {
 		// 加锁
 		long time = System.currentTimeMillis() + TIMEOUT;
 		try {
@@ -86,6 +88,27 @@ public class TestLockController {
 			// 解锁
 			redisLock.unlock(productId, String.valueOf(time));
 		}
+	}
 
+	@GetMapping("test")
+	public void testLock(){
+		String key = "1";
+		String value = String.valueOf(System.currentTimeMillis() + TIMEOUT);
+		long expireTime = 10;
+		int retryTimes = 3;
+		long retryInterval = 2;
+
+		try {
+			boolean lock = redisLock.lock(key,value,expireTime,retryTimes,retryInterval);
+			if (!lock){
+				System.out.println("获取锁失败");
+			}
+			System.out.println("do something !"+System.currentTimeMillis());
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally {
+			//解锁
+			redisLock.unlock(key,value);
+		}
 	}
 }
