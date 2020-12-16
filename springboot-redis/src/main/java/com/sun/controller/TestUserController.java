@@ -12,6 +12,9 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 测试String存储和Hash存储的基本应用
+ */
 @Api("redis测试接口")
 @RestController
 @RequestMapping("/user")

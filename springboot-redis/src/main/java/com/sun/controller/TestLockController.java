@@ -12,8 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA. User: 陈浩翔. Date: 2018/1/26. Time: 下午 9:30.
- * Explain:
+ * 测试redis锁
  */
 @RestController
 public class TestLockController {

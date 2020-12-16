@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * redis的简单测试
+ */
 @RestController
 public class StudentController {
 	@Resource

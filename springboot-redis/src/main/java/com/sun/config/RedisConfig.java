@@ -80,14 +80,6 @@ public class RedisConfig extends CachingConfigurerSupport {
 	public MessageListenerAdapter deviceListenerAdapter() {
 		return new MessageListenerAdapter(new MyRedisChannelListener());
 	}
-	
-	@Bean
-	public MessageListenerAdapter servertenerAdapter() {
-		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-		MessageListenerAdapter adapter = new MessageListenerAdapter(new MyChannelListener());
-		adapter.setSerializer(jackson2JsonRedisSerializer);
-		return adapter;
-	}
 
 	@Bean
 	public RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory) {
@@ -95,8 +87,6 @@ public class RedisConfig extends CachingConfigurerSupport {
 		container.setConnectionFactory(connectionFactory);
 		// device 频道名称
 		container.addMessageListener(deviceListenerAdapter(), new PatternTopic("devices"));
-		// servers 频道名称
-		container.addMessageListener(servertenerAdapter(), new PatternTopic("servers"));
 		return container;
 	}
 

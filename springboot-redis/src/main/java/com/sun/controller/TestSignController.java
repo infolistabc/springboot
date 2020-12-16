@@ -9,6 +9,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.TreeMap;
+
+/**
+ * 测试签到功能
+ */
 @RestController
 public class TestSignController {
     @Resource
