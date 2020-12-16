@@ -102,16 +102,7 @@ public class RedisUtil {
 
 	/**
 	 * 查找匹配的key
-	 * 
-	 * @param pattern
-	 * @return
-	 */
-	public Set<String> keys(String pattern) {
-		return redisTemplate.keys(pattern);
-	}
-
-	/**
-	 * 将当前数据库的 key 移动到给定的数据库 db 当中
+	 *   据库 db 当中
 	 * 
 	 * @param key
 	 * @param dbIndex

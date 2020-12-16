@@ -1,5 +1,6 @@
 package com.sun.util;
 
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -98,8 +99,8 @@ public class RedisLock {
      * @return
      */
     public static synchronized String getUniqueKey(){//加一个锁
-        Random random = new Random();
-        Integer number = random.nextInt(900000) + 100000;//随机六位数
+		SecureRandom secureRandom = new SecureRandom();
+        Integer number = secureRandom.nextInt(900000) + 100000;//随机六位数
         return System.currentTimeMillis()+String.valueOf(number);
     }
 
