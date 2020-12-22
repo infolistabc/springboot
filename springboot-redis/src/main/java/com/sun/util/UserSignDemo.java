@@ -96,6 +96,7 @@ public class UserSignDemo {
      * @return 首次签到日期
      */
     public LocalDate getFirstSignDate(int uid, LocalDate date) {
+        //返回首次签单的偏移量，存在则偏移量加1，代表当月首次签到的日期
         long pos = (long)redisTemplate.execute((RedisCallback<Long>) con -> con.bitPos(buildSignKey(uid, date).getBytes(),true));
         return pos < 0 ? null : date.withDayOfMonth((int) (pos + 1));
     }
@@ -109,6 +110,7 @@ public class UserSignDemo {
      */
     public Map<String, Boolean> getSignInfo(int uid, LocalDate date) {
         Map<String, Boolean> signMap = new HashMap<>(date.getDayOfMonth());
+        //相当于执行redis的bitfield的get命令，查询当月签到的二进制范围进行设置 并返回它的旧值
         List<Long> list = redisTemplate.opsForValue().bitField(buildSignKey(uid, date),BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.unsigned(date.lengthOfMonth())).valueAt(0));
         if (list != null && list.size() > 0) {
             // 由低位到高位，为0表示未签，为1表示已签

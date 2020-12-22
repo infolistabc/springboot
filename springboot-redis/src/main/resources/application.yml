@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8001
 #redis连接配置
 spring:
   redis:
