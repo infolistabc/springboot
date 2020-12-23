@@ -50,7 +50,11 @@ public class UserDau {
      */
     public long getWeekCount(LocalDate date){
         long weekCount = 0;
-        redisTemplate.execute((RedisCallback<Long>) con ->con.bitOp(RedisStringCommands.BitOperation.AND,buildSignKey(date).getBytes()));
+        for (int i =0; i<=7;i++){
+            LocalDate dateTemp = date.plusDays(-i);
+            weekCount +=redisTemplate.execute((RedisCallback<Long>) con ->
+                    con.bitCount(buildSignKey(dateTemp).getBytes()));
+        }
         return weekCount;
     }
     /**

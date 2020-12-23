@@ -20,7 +20,7 @@ public class TestUserDauController {
 
     @PostMapping("/dauLogin")
     public String dauLogin(){
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now().plusDays(-1);
         // doSign
         boolean signed = userDau.doLogin(today,100L);
         boolean signed1 = userDau.doLogin(today,101L);
@@ -45,7 +45,7 @@ public class TestUserDauController {
     public String getWeekCount(){
         LocalDate today = LocalDate.now();
         long count = userDau.getWeekCount(today);
-        return "";
+        return "当天时间的前7天签到次数："+count;
     }
 
     private static String formatDate(LocalDate date, String pattern) {

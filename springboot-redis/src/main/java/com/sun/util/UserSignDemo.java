@@ -110,7 +110,7 @@ public class UserSignDemo {
      */
     public Map<String, Boolean> getSignInfo(int uid, LocalDate date) {
         Map<String, Boolean> signMap = new HashMap<>(date.getDayOfMonth());
-        //相当于执行redis的bitfield的get命令，查询当月签到的二进制范围进行设置 并返回它的旧值
+        //相当于执行redis的bitfield的get命令，返回指定二进制的范围
         List<Long> list = redisTemplate.opsForValue().bitField(buildSignKey(uid, date),BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.unsigned(date.lengthOfMonth())).valueAt(0));
         if (list != null && list.size() > 0) {
             // 由低位到高位，为0表示未签，为1表示已签
@@ -118,6 +118,7 @@ public class UserSignDemo {
             for (int i = date.lengthOfMonth(); i > 0; i--) {
                 LocalDate d = date.withDayOfMonth(i);
                 signMap.put(formatDate(d, "yyyy-MM-dd"), v >> 1 << 1 != v);
+                //高位补0，原数除2
                 v >>= 1;
             }
         }
