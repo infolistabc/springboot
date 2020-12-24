@@ -14,23 +14,33 @@ import java.time.format.DateTimeFormatter;
  * 基于Redis位图的用户日活数据收集功能
  * <p>
  * 实现功能：
- * 1. 日用户的DAU数据
- * 2. 最近7天用户的DAU数据
- * 3. 最近一个月用户的DAU数据
+ * 1. 用户的登录上报
+ * 2. 每天用户的访问量
+ * 3. 用户最近7天的访问量
  */
 @Component
-public class UserDau {
+public class UserOnlineDemo {
     @Resource
     private RedisTemplate<String,Object> redisTemplate;
 
     /**
-     * 用户登录记录
+     * 用户上线
      * @param uid 用户ID
      * @param date 日期
      * @return 之前的签到状态
      */
-    public boolean doLogin(LocalDate date,Long uid) {
+    public boolean doOnline(LocalDate date,Long uid) {
         return redisTemplate.opsForValue().setBit(buildSignKey(date), uid, true);
+    }
+
+    /**
+     * 用户下线
+     * @param date 日期
+     * @param uid  用户ID
+     * @return
+     */
+    public boolean doUnderLine(LocalDate date,Long uid){
+        return redisTemplate.opsForValue().setBit(buildSignKey(date), uid, false);
     }
 
     /**
@@ -39,7 +49,7 @@ public class UserDau {
      * @param date 日期
      * @return 当前日期的日活数量
      */
-    public long getTodayCount(LocalDate date) {
+    public long geOnlineTodayCount(LocalDate date) {
         return (long)redisTemplate.execute((RedisCallback<Long>) con -> con.bitCount(buildSignKey(date).getBytes()));
     }
 
@@ -48,7 +58,7 @@ public class UserDau {
      * @param date 当前日期
      * @return
      */
-    public long getWeekCount(LocalDate date){
+    public long getOnlineWeekCount(LocalDate date){
         long weekCount = 0;
         for (int i =0; i<=7;i++){
             LocalDate dateTemp = date.plusDays(-i);
@@ -57,6 +67,7 @@ public class UserDau {
         }
         return weekCount;
     }
+
     /**
      * 返回签名的key
      *
