@@ -23,7 +23,7 @@ import java.util.Map;
  * 6. 获取当月签到情况
  */
 @Component
-public class UserSignDemo {
+public class UserSignUtil {
     @Resource
     private RedisTemplate<String,Object> redisTemplate;
 

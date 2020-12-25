@@ -2,12 +2,10 @@ package com.sun.controller;
 
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sun.util.RedisLock;
+import com.sun.util.RedisLockUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +18,7 @@ import java.util.Map;
 public class TestLockController {
 
 	@Autowired
-	private RedisLock redisLock;
+	private RedisLockUtil redisLockUtil;
 
 	private static final int TIMEOUT = 10 * 1000;// 超时时间 10s
 
@@ -61,7 +59,7 @@ public class TestLockController {
 		// 加锁
 		long time = System.currentTimeMillis() + TIMEOUT;
 		try {
-			if (!redisLock.lock(productId, String.valueOf(time))) {
+			if (!redisLockUtil.lock(productId, String.valueOf(time))) {
 				//throw new Exception("很抱歉，人太多了，换个姿势再试试~~");
 				System.out.println("很抱歉，人太多了，换个姿势再试试~~");
 			}
@@ -71,7 +69,7 @@ public class TestLockController {
 				throw new Exception("活动结束");
 			} else {
 				// 2.下单
-				orders.put(RedisLock.getUniqueKey(), productId);
+				orders.put(RedisLockUtil.getUniqueKey(), productId);
 				// 3.减库存
 				stockNum = stockNum - 1;// 不做处理的话，高并发下会出现超卖的情况，下单数，大于减库存的情况。虽然这里减了，但由于并发，减的库存还没存到map中去。新的并发拿到的是原来的库存
 				try {
@@ -87,7 +85,7 @@ public class TestLockController {
 			e.printStackTrace();
 		} finally {
 			// 解锁
-			redisLock.unlock(productId, String.valueOf(time));
+			redisLockUtil.unlock(productId, String.valueOf(time));
 		}
 	}
 
@@ -100,7 +98,7 @@ public class TestLockController {
 		long retryInterval = 2;
 
 		try {
-			boolean lock = redisLock.lock(key,value,expireTime,retryTimes,retryInterval);
+			boolean lock = redisLockUtil.lock(key,value,expireTime,retryTimes,retryInterval);
 			if (!lock){
 				System.out.println("获取锁失败");
 			}
@@ -109,7 +107,7 @@ public class TestLockController {
 			e.printStackTrace();
 		}finally {
 			//解锁
-			redisLock.unlock(key,value);
+			redisLockUtil.unlock(key,value);
 		}
 	}
 }

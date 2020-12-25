@@ -2,7 +2,7 @@ package com.sun.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.util.DelayingQueueDemo;
+import com.sun.util.DelayingQueueUtil;
 import com.sun.vo.Message;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ import java.util.UUID;
 public class TestDelayMessageQueueController {
 
     @Resource
-    DelayingQueueDemo delayingQueueDemo;
+    DelayingQueueUtil delayingQueueUtil;
 
     private static ObjectMapper mapper = Jackson2ObjectMapperBuilder.json().build();
 
@@ -55,7 +55,7 @@ public class TestDelayMessageQueueController {
                 message.setBody(messageContent);
                 message.setId(seqId);
                 message.setChannel(USER_CHANNEL);
-                delayingQueueDemo.push(message);
+                delayingQueueUtil.push(message);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +69,7 @@ public class TestDelayMessageQueueController {
      */
     @Scheduled(cron = "*/1 * * * * *")
     public void consumer() throws JsonProcessingException {
-        List<Message> msgList = delayingQueueDemo.pull();
+        List<Message> msgList = delayingQueueUtil.pull();
         if (null != msgList) {
             long current = System.currentTimeMillis();
             msgList.stream().forEach(msg -> {
@@ -81,7 +81,7 @@ public class TestDelayMessageQueueController {
                         e.printStackTrace();
                     }
                     //移除消息
-                    delayingQueueDemo.remove(msg);
+                    delayingQueueUtil.remove(msg);
                 }
             });
         }

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @description: 延时队列功能类
  **/
 @Component
-public class DelayingQueueDemo {
+public class DelayingQueueUtil {
 
     private static ObjectMapper mapper = Jackson2ObjectMapperBuilder.json().build();
     @Resource

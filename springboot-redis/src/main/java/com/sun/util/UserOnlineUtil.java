@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
  * 3. 用户最近7天的访问量
  */
 @Component
-public class UserOnlineDemo {
+public class UserOnlineUtil {
     @Resource
     private RedisTemplate<String,Object> redisTemplate;
 

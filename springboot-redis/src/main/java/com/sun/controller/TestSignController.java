@@ -1,10 +1,9 @@
 package com.sun.controller;
 
-import com.sun.util.UserSignDemo;
+import com.sun.util.UserSignUtil;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.time.LocalDate;
@@ -19,13 +18,13 @@ import java.util.TreeMap;
 @RestController
 public class TestSignController {
     @Resource
-    UserSignDemo userSignDemo;
+    UserSignUtil userSignUtil;
 
     @PostMapping("/sign")
     public String sign(){
         LocalDate today = LocalDate.now();
         // doSign
-        boolean signed = userSignDemo.doSign(1000, today);
+        boolean signed = userSignUtil.doSign(1000, today);
         if (signed) {
             return "您已签到：" + formatDate(today, "yyyy-MM-dd");
         } else {
@@ -36,7 +35,7 @@ public class TestSignController {
     @GetMapping("/checkSign")
     public String checkSign(){
         LocalDate today = LocalDate.now();
-        boolean signed = userSignDemo.checkSign(1000, today);
+        boolean signed = userSignUtil.checkSign(1000, today);
         if (signed) {
             return "您已签到：" + formatDate(today, "yyyy-MM-dd");
         } else {
@@ -47,28 +46,28 @@ public class TestSignController {
     @GetMapping("/getSignCount")
     public String getSignCount(){
         LocalDate today = LocalDate.now();
-        long count = userSignDemo.getSignCount(1000, today);
+        long count = userSignUtil.getSignCount(1000, today);
         return "本月签到次数：" + count;
     }
 
     @GetMapping("/getContinuousSignCount")
     public String getContinuousSignCount(){
         LocalDate today = LocalDate.now();
-        long count = userSignDemo.getContinuousSignCount(1000, today);
+        long count = userSignUtil.getContinuousSignCount(1000, today);
         return "连续签到次数：" + count;
     }
 
     @GetMapping("getFirstSignDate")
     public String getFirstSignDate(){
         LocalDate today = LocalDate.now();
-        LocalDate date = userSignDemo.getFirstSignDate(1000, today);
+        LocalDate date = userSignUtil.getFirstSignDate(1000, today);
         return "本月首次签到：" + formatDate(date, "yyyy-MM-dd");
     }
 
     @GetMapping("/getSignInfo")
     public Map getSignInfo(){
         LocalDate today = LocalDate.now();
-        Map<String, Boolean> signInfo = new TreeMap<>(userSignDemo.getSignInfo(1000, today));
+        Map<String, Boolean> signInfo = new TreeMap<>(userSignUtil.getSignInfo(1000, today));
         for (Map.Entry<String, Boolean> entry : signInfo.entrySet()) {
             System.out.println(entry.getKey() + ": " + (entry.getValue() ? "√" : "-"));
         }
@@ -79,7 +78,7 @@ public class TestSignController {
     public void testSign(){
         LocalDate today = LocalDate.now();
         { // doSign
-            boolean signed = userSignDemo.doSign(1000, today);
+            boolean signed = userSignUtil.doSign(1000, today);
             if (signed) {
                 System.out.println("您已签到：" + formatDate(today, "yyyy-MM-dd"));
             } else {
@@ -88,7 +87,7 @@ public class TestSignController {
         }
 
         { // checkSign
-            boolean signed = userSignDemo.checkSign(1000, today);
+            boolean signed = userSignUtil.checkSign(1000, today);
             if (signed) {
                 System.out.println("您已签到：" + formatDate(today, "yyyy-MM-dd"));
             } else {
@@ -97,23 +96,23 @@ public class TestSignController {
         }
 
         { // getSignCount
-            long count = userSignDemo.getSignCount(1000, today);
+            long count = userSignUtil.getSignCount(1000, today);
             System.out.println("本月签到次数：" + count);
         }
 
         { // getContinuousSignCount
-            long count = userSignDemo.getContinuousSignCount(1000, today);
+            long count = userSignUtil.getContinuousSignCount(1000, today);
             System.out.println("连续签到次数：" + count);
         }
 
         { // getFirstSignDate
-            LocalDate date = userSignDemo.getFirstSignDate(1000, today);
+            LocalDate date = userSignUtil.getFirstSignDate(1000, today);
             System.out.println("本月首次签到：" + formatDate(date, "yyyy-MM-dd"));
         }
 
         { // getSignInfo
             System.out.println("当月签到情况：");
-            Map<String, Boolean> signInfo = new TreeMap<>(userSignDemo.getSignInfo(1000, today));
+            Map<String, Boolean> signInfo = new TreeMap<>(userSignUtil.getSignInfo(1000, today));
             for (Map.Entry<String, Boolean> entry : signInfo.entrySet()) {
                 System.out.println(entry.getKey() + ": " + (entry.getValue() ? "√" : "-"));
             }

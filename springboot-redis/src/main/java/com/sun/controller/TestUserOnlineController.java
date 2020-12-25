@@ -1,7 +1,7 @@
 package com.sun.controller;
 
 
-import com.sun.util.UserOnlineDemo;
+import com.sun.util.UserOnlineUtil;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,15 +18,15 @@ import java.time.format.DateTimeFormatter;
 @RestController
 public class TestUserOnlineController {
     @Resource
-    UserOnlineDemo userOnlineDemo;
+    UserOnlineUtil userOnlineUtil;
 
     @PostMapping("/doOnline")
     public String doOnline(){
         LocalDate today = LocalDate.now();
         // doSign
-        boolean signed = userOnlineDemo.doOnline(today,100L);
-        userOnlineDemo.doOnline(today,102L);
-        userOnlineDemo.doOnline(today,103L);
+        boolean signed = userOnlineUtil.doOnline(today,100L);
+        userOnlineUtil.doOnline(today,102L);
+        userOnlineUtil.doOnline(today,103L);
         if (signed) {
             return "您已上线：" + formatDate(today, "yyyy-MM-dd");
         } else {
@@ -38,7 +38,7 @@ public class TestUserOnlineController {
     public String doUnderLine(){
         LocalDate today = LocalDate.now();
         // doSign
-        boolean signed = userOnlineDemo.doUnderLine(today,100L);
+        boolean signed = userOnlineUtil.doUnderLine(today,100L);
         if (signed) {
             return "您已下线：" + formatDate(today, "yyyy-MM-dd");
         } else {
@@ -49,14 +49,14 @@ public class TestUserOnlineController {
     @GetMapping("/geOnlineTodayCount")
     public String geOnlineTodayCount(){
         LocalDate today = LocalDate.now();
-        long count = userOnlineDemo.geOnlineTodayCount(today);
+        long count = userOnlineUtil.geOnlineTodayCount(today);
         return "当天上报次数：" + count;
     }
 
     @GetMapping("/getOnlineWeekCount")
     public String getOnlineWeekCount(){
         LocalDate today = LocalDate.now();
-        long count = userOnlineDemo.getOnlineWeekCount(today);
+        long count = userOnlineUtil.getOnlineWeekCount(today);
         return "当天时间的前7天上报次数："+count;
     }
 

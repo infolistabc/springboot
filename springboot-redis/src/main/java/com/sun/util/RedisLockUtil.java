@@ -15,7 +15,7 @@ import org.springframework.util.StringUtils;
  * Explain:Redis分布式锁
  */
 @Component
-public class RedisLock {
+public class RedisLockUtil {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 	@Autowired
