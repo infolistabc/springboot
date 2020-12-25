@@ -2,13 +2,11 @@ package com.sun.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.service.DelayingQueueService;
+import com.sun.util.DelayingQueueDemo;
 import com.sun.vo.Message;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,10 +24,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/message")
 @Slf4j
-public class TestDelayMessageQueue {
+public class TestDelayMessageQueueController {
 
     @Resource
-    DelayingQueueService delayingQueueService;
+    DelayingQueueDemo delayingQueueDemo;
 
     private static ObjectMapper mapper = Jackson2ObjectMapperBuilder.json().build();
 
@@ -55,7 +53,7 @@ public class TestDelayMessageQueue {
                 message.setBody(messageContent);
                 message.setId(seqId);
                 message.setChannel(USER_CHANNEL);
-                delayingQueueService.push(message);
+                delayingQueueDemo.push(message);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +67,7 @@ public class TestDelayMessageQueue {
      */
     @Scheduled(cron = "*/1 * * * * *")
     public void consumer() throws JsonProcessingException {
-        List<Message> msgList = delayingQueueService.pull();
+        List<Message> msgList = delayingQueueDemo.pull();
         if (null != msgList) {
             long current = System.currentTimeMillis();
             msgList.stream().forEach(msg -> {
@@ -81,7 +79,7 @@ public class TestDelayMessageQueue {
                         e.printStackTrace();
                     }
                     //移除消息
-                    delayingQueueService.remove(msg);
+                    delayingQueueDemo.remove(msg);
                 }
             });
         }

@@ -1,4 +1,4 @@
-package com.sun.redistask;
+package com.sun.config;
 
 import net.javacrumbs.shedlock.core.LockProvider;
 import net.javacrumbs.shedlock.provider.redis.spring.RedisLockProvider;

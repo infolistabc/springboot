@@ -1,4 +1,4 @@
-package com.sun.service;
+package com.sun.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @description: 延时队列功能类
  **/
 @Component
-public class DelayingQueueService {
+public class DelayingQueueDemo {
 
     private static ObjectMapper mapper = Jackson2ObjectMapperBuilder.json().build();
     @Resource
