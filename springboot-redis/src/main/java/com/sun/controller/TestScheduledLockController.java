@@ -17,7 +17,7 @@ public class TestScheduledLockController {
 
 
     @RequestMapping("/testScheduled")
-    @Scheduled(cron = "0 0/1 * * * ?")
+    //@Scheduled(cron = "0 0/1 * * * ?")
     @SchedulerLock(name = "redis:scheduled:lock", lockAtMostFor = "100000", lockAtLeastFor = "5000")
     public void sendSMS(){
         log.info("任务执行开始");

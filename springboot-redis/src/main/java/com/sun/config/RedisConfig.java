@@ -1,6 +1,10 @@
 package com.sun.config;
 
 import java.time.Duration;
+
+import com.google.common.base.Charsets;
+import com.google.common.hash.Funnel;
+import com.sun.filter.BloomFilterHelper;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -88,6 +92,20 @@ public class RedisConfig extends CachingConfigurerSupport {
 		// device 频道名称
 		container.addMessageListener(deviceListenerAdapter(), new PatternTopic("devices"));
 		return container;
+	}
+
+	/**
+	 * <注册BloomFilterHelper>
+	 *
+	 * @param
+	 * @return com.zy.crawler.config.redis.BloomFilterHelper<java.lang.String>
+	 * @author Lifeifei
+	 * @date 2019/4/8 13:18
+	 */
+	@Bean
+	public BloomFilterHelper<String> initBloomFilterHelper() {
+		return new BloomFilterHelper<>((Funnel<String>) (from, into) -> into.putString(from, Charsets.UTF_8)
+				.putString(from, Charsets.UTF_8), 1000000, 0.01);
 	}
 
 }

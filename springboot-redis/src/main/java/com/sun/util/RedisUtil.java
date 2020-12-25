@@ -286,6 +286,18 @@ public class RedisUtil {
 	}
 
 	/**
+	 * 只有在 key 不存在时设置 key 的值
+	 * @param key
+	 * @param value
+	 * @param timeout 设置key的有效期
+	 * @param unit  时间单位
+	 * @return
+	 */
+	public boolean setIfAbsent(String key, String value,long timeout, TimeUnit unit ) {
+		return redisTemplate.opsForValue().setIfAbsent(key, value,timeout,unit);
+	}
+
+	/**
 	 * 用 value 参数覆写给定 key 所储存的字符串值，从偏移量 offset 开始
 	 * 
 	 * @param key
