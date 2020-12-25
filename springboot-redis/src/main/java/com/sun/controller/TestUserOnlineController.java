@@ -2,6 +2,7 @@ package com.sun.controller;
 
 
 import com.sun.util.UserOnlineDemo;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * 测试用户上线，下线功能
  */
+@Api(tags = "测试用户上线，下线功能")
 @RestController
 public class TestUserOnlineController {
     @Resource

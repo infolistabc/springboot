@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.util.DelayingQueueDemo;
 import com.sun.vo.Message;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,6 +25,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/message")
 @Slf4j
+@Api(tags = "测试延时消息队列")
 public class TestDelayMessageQueueController {
 
     @Resource

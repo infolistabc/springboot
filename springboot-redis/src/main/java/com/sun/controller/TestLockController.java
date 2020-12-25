@@ -1,5 +1,6 @@
 package com.sun.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import java.util.Map;
  * 测试redis锁
  */
 @RestController
+@Api(tags = "测试redis锁")
 public class TestLockController {
 
 	@Autowired

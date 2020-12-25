@@ -1,6 +1,7 @@
 package com.sun.controller;
 
 import com.sun.util.UserSignDemo;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import java.util.TreeMap;
 /**
  * 测试签到功能
  */
+@Api(tags = "测试签到功能")
 @RestController
 public class TestSignController {
     @Resource

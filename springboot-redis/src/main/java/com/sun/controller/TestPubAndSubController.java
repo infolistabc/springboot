@@ -1,6 +1,7 @@
 package com.sun.controller;
 
 import com.sun.util.RedisUtil;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 测试消息队列
  */
+@Api(tags = "测试发布与订阅")
 @RestController
 @RequestMapping("/redis")
 public class TestPubAndSubController {
