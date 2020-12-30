@@ -15,7 +15,7 @@ import com.sun.service.IUserService;
 public class UserController {
 	@Resource
 	private IUserService iUserervice;
-	
+
 	@RequestMapping("/add")
 	public String addUser() {
 		User user = new User();

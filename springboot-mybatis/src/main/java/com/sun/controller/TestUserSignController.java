@@ -3,6 +3,8 @@ package com.sun.controller;
 import com.sun.service.IUserSignService;
 import com.sun.vo.SignReqParam;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.time.LocalDate;
@@ -18,59 +20,64 @@ public class TestUserSignController {
 
     @ApiOperation("签到")
     @PostMapping("/sign")
-    public String doSign(@RequestBody SignReqParam signReqParam){
+    public ResponseEntity doSign(@RequestBody SignReqParam signReqParam){
         LocalDate today = formatDate(signReqParam.getDate());
         // doSign
         boolean signed = iUserSignService.doSign(signReqParam.getUid(),today);
         if (signed) {
-            return "签到完成：" + today;
+            return new ResponseEntity("签到成功!", HttpStatus.OK);
         } else {
-            return "您已签到：" + today;
+            return new ResponseEntity("您已签到!", HttpStatus.OK);
         }
     }
 
     @ApiOperation("当月签到的次数")
     @GetMapping("/getSignCount")
-    public String getSignCount(SignReqParam signReqParam){
+    public ResponseEntity getSignCount(SignReqParam signReqParam){
         LocalDate today = formatDate(signReqParam.getDate());
         int count = iUserSignService.getSignDays(signReqParam.getUid(),today);
-        return "本月签到次数：" + count;
+        return new ResponseEntity("本月签到次数："+count,HttpStatus.OK);
     }
 
     @ApiOperation("检查是否签到")
     @GetMapping("/checkSign")
-    public String checkSign(SignReqParam signReqParam){
+    public ResponseEntity checkSign(SignReqParam signReqParam){
         LocalDate today = formatDate(signReqParam.getDate());
-        //boolean signed = iUserSignService.checkSign(buildSignKey(1000,today),today.getDayOfMonth()+1);
         boolean signed = iUserSignService.checkSign(signReqParam.getUid(),today);
         if (signed) {
-            return "您已签到：" + today;
+            return new ResponseEntity("您已签到："+signed,HttpStatus.OK);
         } else {
-            return "尚未签到：" + today;
+            return new ResponseEntity("您位签到："+signed,HttpStatus.OK);
         }
     }
 
     @ApiOperation("查询当月第一次签到的日期")
     @GetMapping("getFirstSignDate")
-    public String getFirstSignDate(SignReqParam signReqParam){
+    public ResponseEntity getFirstSignDate(SignReqParam signReqParam){
         LocalDate today = formatDate(signReqParam.getDate());
         LocalDate date1 = iUserSignService.getFirstSignDate(signReqParam.getUid(),today);
-        return "本月首次签到：" + date1;
+        return new ResponseEntity("本月首次签到：" + date1,HttpStatus.OK);
     }
 
     @ApiOperation("获取当月签到详情")
     @GetMapping("/getSignInfo")
-    public Map getSignInfo(SignReqParam signReqParam){
+    public ResponseEntity getSignInfo(SignReqParam signReqParam){
         LocalDate today = formatDate(signReqParam.getDate());
         Map<String, Boolean> signInfo = new TreeMap<>(iUserSignService.getSignInfo(signReqParam.getUid(), today));
-        return signInfo;
+        return new ResponseEntity(signInfo,HttpStatus.OK);
     }
 
     @ApiOperation("查询当月连续签到的次数")
     @GetMapping("/getContinuousSignCount")
-    public Long getContinuousSignCount(SignReqParam signReqParam){
+    public ResponseEntity getContinuousSignCount(SignReqParam signReqParam){
         LocalDate today = formatDate(signReqParam.getDate());
-        return iUserSignService.getContinuousSignCount(signReqParam.getUid(),today);
+        Long count = iUserSignService.getContinuousSignCount(signReqParam.getUid(),today);
+        return new ResponseEntity("当月连续签到的次数"+count,HttpStatus.OK);
+    }
+
+    public ResponseEntity delSign(SignReqParam signReqParam){
+
+        return new ResponseEntity("删除成功！",HttpStatus.OK);
     }
 
     private LocalDate formatDate(String date){

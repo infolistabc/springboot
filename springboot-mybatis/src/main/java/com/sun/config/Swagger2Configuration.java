@@ -31,8 +31,8 @@ public class Swagger2Configuration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("redis测试服务") //设置文档的标题
-                .description("redis测试相关接口文档") // 设置文档的描述
+                .title("签到测试服务") //设置文档的标题
+                .description("mysql签到测试相关接口文档") // 设置文档的描述
                 .version(VERSION) // 设置文档的版本信息-> 1.0.0 Version information
                 .termsOfServiceUrl("") // 设置文档的License信息->1.3 License information
                 .build();
