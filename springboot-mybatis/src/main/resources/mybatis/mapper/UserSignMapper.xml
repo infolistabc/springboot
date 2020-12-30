@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun.dao.IUserSignDao"><!-- 在此定义命名空间 -->
+	<resultMap type="UserSign" id="UserSignResultMap">
+		<id property="id" column="id" />
+		<result property="userKey" column="user_key" />
+		<result property="signMark" column="sign_mark" />
+		<result property="crtTime" column="crt_time" />
+		<result property="updTime" column="upd_time" />
+	</resultMap>
+	<insert id="doSign" parameterType="com.sun.entity.UserSign">
+		insert into user_sign(user_key,sign_mark,crt_time)values(#{userKey},#{signMark},#{crtTime})
+	</insert>
+
+	<select id="checkSign" parameterType="com.sun.entity.UserSign" resultMap="UserSignResultMap">
+		select id,user_key,sign_mark,crt_time,upd_time from user_sign where user_key=#{userKey}
+	</select>
+
+	<update id="updateByUserKey" parameterType="com.sun.entity.UserSign">
+		update user_sign set sign_mark=#{signMark},upd_time=#{updTime}
+		where user_key=#{userKey}
+	</update>
+</mapper>
