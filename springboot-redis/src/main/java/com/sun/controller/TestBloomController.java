@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 /**
  * 测试String存储和Hash存储的基本应用
  */
-@Api(tags = "布隆过滤器测试接口")
+@Api(tags = "测试布隆过滤器接口")
 @RestController
 @RequestMapping("/bloom")
 public class TestBloomController {
