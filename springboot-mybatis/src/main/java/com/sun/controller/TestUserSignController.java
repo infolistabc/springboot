@@ -75,11 +75,6 @@ public class TestUserSignController {
         return new ResponseEntity("当月连续签到的次数"+count,HttpStatus.OK);
     }
 
-    public ResponseEntity delSign(SignReqParam signReqParam){
-
-        return new ResponseEntity("删除成功！",HttpStatus.OK);
-    }
-
     private LocalDate formatDate(String date){
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date1 = LocalDate.parse(date, fmt);

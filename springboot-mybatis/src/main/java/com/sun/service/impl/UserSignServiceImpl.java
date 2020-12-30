@@ -99,7 +99,6 @@ public class UserSignServiceImpl implements IUserSignService {
             return 0;
         }
         String result = new StringBuilder(intToBinary32(userSignTemp.getSignMark(),32)).reverse().toString();
-        System.out.println(result);
         int count = 0;
         for (int i =date.lengthOfMonth();i>0;i--){
             if(result.charAt(i-1)=='1'){
