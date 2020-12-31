@@ -103,7 +103,7 @@ public class UserSignServiceImpl implements IUserSignService {
         for (int i =date.lengthOfMonth();i>0;i--){
             if(result.charAt(i-1)=='1'){
                 count++;
-                if (result.charAt(i-2)=='0'){
+                if (i!=1&&result.charAt(i-2)=='0'){
                     break;
                 }
             }
