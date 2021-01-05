@@ -1,20 +1,20 @@
 package com.sun.util;
 
+import org.springframework.data.domain.Range;
 import org.springframework.data.redis.connection.DataType;
+import org.springframework.data.redis.connection.RedisZSetCommands;
+import org.springframework.data.redis.connection.stream.MapRecord;
+import org.springframework.data.redis.connection.stream.Record;
+import org.springframework.data.redis.connection.stream.RecordId;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -1364,5 +1364,46 @@ public class RedisUtil {
 	 */
 	public Cursor<TypedTuple<Object>> zScan(String key, ScanOptions options) {
 		return redisTemplate.opsForZSet().scan(key, options);
+	}
+
+	/**------------------zSet相关操作--------------------------------*/
+
+	/**
+	 * xadd追加消息
+	 * @param key  存储数据的key
+	 * @param hashMap 消息内容
+	 * @return 返回生成消息的ID
+	 */
+	public RecordId xadd(String key, HashMap hashMap){
+		return redisTemplate.opsForStream().add(key,hashMap);
+	}
+
+	/**
+	 * 删除消息
+	 * @param key
+	 * @param recordId 删除的ID
+	 * @return
+	 */
+	public Long xdel(String key,String recordId){
+		return redisTemplate.opsForStream().delete(key,recordId);
+	}
+
+	/**
+	 * 获取消息列表，会自动过滤已经删除的消息
+	 * @param key 查询消息的key
+	 * @param range 查询消息的边界
+	 * @return 返回消息列表
+	 */
+	public List<MapRecord<String,Object,Object>> xrange(String key, Range<String> range){
+		return redisTemplate.opsForStream().range(key,range);
+	}
+
+	/**
+	 * 消息长度
+	 * @param key 消息key
+	 * @return
+	 */
+	public Long xlen(String key){
+		return redisTemplate.opsForStream().size(key);
 	}
 }

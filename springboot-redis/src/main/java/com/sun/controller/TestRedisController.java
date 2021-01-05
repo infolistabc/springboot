@@ -4,12 +4,16 @@ import com.sun.util.RedisUtil;
 import com.sun.vo.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Range;
+import org.springframework.data.redis.connection.stream.MapRecord;
+import org.springframework.data.redis.connection.stream.RecordId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -81,5 +85,36 @@ public class TestRedisController {
     public ResponseEntity updateName(){
         redisUtil.hPut("user:info:2","username","李四");
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @ApiOperation("redis的Stream追加信息")
+    @PostMapping("/xadd")
+    public ResponseEntity testXadd(){
+        HashMap<String,String> map = new HashMap<>();
+        map.put("name","xiaoming");
+        map.put("age","12");
+        RecordId recordId= redisUtil.xadd("xiaoming",map);
+        return new ResponseEntity(recordId,HttpStatus.OK);
+    }
+
+    @ApiOperation("redis的Stream删除信息")
+    @PostMapping("/xdel")
+    public ResponseEntity testxdel(String id){
+        Long num = redisUtil.xdel("xiaoming",id);
+        return new ResponseEntity(num,HttpStatus.OK);
+    }
+
+    @ApiOperation("redis的Stream列表信息")
+    @PostMapping("/xrange")
+    public ResponseEntity testxrange(){
+        List<MapRecord<String,Object,Object>> list =  redisUtil.xrange("xiaoming",Range.unbounded());
+        return new ResponseEntity(list,HttpStatus.OK);
+    }
+
+    @ApiOperation("redis的Stream列表长度")
+    @PostMapping("/xlen")
+    public ResponseEntity xlen(){
+        Long num =  redisUtil.xlen("xiaoming");
+        return new ResponseEntity(num,HttpStatus.OK);
     }
 }

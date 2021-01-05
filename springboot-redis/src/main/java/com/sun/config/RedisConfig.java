@@ -14,6 +14,7 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.connection.stream.MapRecord;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -24,6 +25,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.data.redis.stream.StreamMessageListenerContainer;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.util.ErrorHandler;
 
 /**
  * 
@@ -84,6 +88,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 	public MessageListenerAdapter deviceListenerAdapter() {
 		return new MessageListenerAdapter(new MyRedisChannelListener());
 	}
+
 
 	@Bean
 	public RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory) {
