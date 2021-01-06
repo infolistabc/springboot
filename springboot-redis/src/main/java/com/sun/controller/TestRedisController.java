@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * 测试String存储和Hash存储的基本应用
  */
-@Api(tags = "redis测试接口")
+@Api(tags = "测试redis基本读写接口")
 @RestController
 @RequestMapping("/user")
 public class TestRedisController {
