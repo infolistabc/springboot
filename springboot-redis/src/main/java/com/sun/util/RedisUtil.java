@@ -1366,7 +1366,7 @@ public class RedisUtil {
 		return redisTemplate.opsForZSet().scan(key, options);
 	}
 
-	/**------------------zSet相关操作--------------------------------*/
+	/**------------------stream相关操作--------------------------------*/
 
 	/**
 	 * xadd追加消息
@@ -1405,5 +1405,36 @@ public class RedisUtil {
 	 */
 	public Long xlen(String key){
 		return redisTemplate.opsForStream().size(key);
+	}
+
+
+	/**------------------HyperLogLog相关操作--------------------------------*/
+
+	/**
+	 * 增加计数
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public Long pfadd(String key,String value){
+		return redisTemplate.opsForHyperLogLog().add(key,value);
+	}
+
+	/**
+	 * 获取计数
+	 * @param key
+	 * @return
+	 */
+	public Long pfcount(String key){
+		return redisTemplate.opsForHyperLogLog().size(key);
+	}
+
+	/**
+	 * 将多个key计数值累加在一起形成一个新的计数
+	 * @param key
+	 * @return
+	 */
+	public Long union(String key){
+		return redisTemplate.opsForHyperLogLog().union(key);
 	}
 }
