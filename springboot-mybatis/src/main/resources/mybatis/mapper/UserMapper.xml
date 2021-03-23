@@ -4,8 +4,8 @@
 <mapper namespace="com.sun.dao.IUserDao"><!-- 在此定义命名空间 -->
 	<resultMap type="User" id="UserResultMap">
 		<id property="uid" column="uid" />
-		<result property="name" column="create_time" />
-		<result property="age" column="create_time" />
+		<result property="name" column="name" />
+		<result property="age" column="age" />
 		<result property="createTime" column="create_time" />
 		<result property="updateTime" column="update_time" />
 	</resultMap>

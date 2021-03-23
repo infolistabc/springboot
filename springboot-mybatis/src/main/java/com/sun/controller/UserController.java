@@ -3,6 +3,9 @@ package com.sun.controller;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.PageHelper;
@@ -16,7 +19,7 @@ public class UserController {
 	@Resource
 	private IUserService iUserervice;
 
-	@RequestMapping("/add")
+	@PostMapping("/add")
 	public String addUser() {
 		User user = new User();
 		user.setName("李四");
@@ -25,7 +28,7 @@ public class UserController {
 		this.iUserervice.adduser(user);
 		return "成功";
 	}
-	@RequestMapping("/list")
+	@GetMapping("/list")
 	public PageInfo<User> queryPage() {
 		 PageHelper.startPage(1, 2);
 		 List<User> list = iUserervice.queryPage();

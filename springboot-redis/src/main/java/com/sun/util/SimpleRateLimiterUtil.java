@@ -44,7 +44,7 @@ public class SimpleRateLimiterUtil {
      */
     public boolean setLimitFlow(String key,Long intervalTime){
         Long currentTime = new Date().getTime();
-        if(redisTemplate.hasKey("limit")) {
+        if(redisTemplate.hasKey(key)) {
             Integer count = redisTemplate.opsForZSet().rangeByScore(key, currentTime -  intervalTime, currentTime).size();        // intervalTime是限流的时间
             if (count != null && count > 5) {
                 return false;
