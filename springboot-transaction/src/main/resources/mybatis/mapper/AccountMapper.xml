@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sun.dao.IAccountDao"><!-- 在此定义命名空间 -->
+	<resultMap type="Account" id="AccountResultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="balance" column="balance" />
+		<result property="order_id" column="orderId" />
+	</resultMap>
+	<update id="updateAccount" parameterType="com.sun.entity.Account">
+		update account set balance=#{balance} where order_id=#{orderId}
+	</update>
+</mapper>

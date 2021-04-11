@@ -1,0 +1,37 @@
+#端口号
+spring:
+  datasource:
+    # 使用druid数据源
+    username: root
+    password: wilson443158
+    url: jdbc:mysql://localhost:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:                  #连接池配置
+      filters: stat,wall
+      min-idle: 10
+      initial-size: 10
+      max-active: 100
+      max-wait: 1000
+      pool-prepared-statements: true
+      max-open-prepared-statements: 20
+      web-stat-filter:              #WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
+        enabled: true               #是否启用StatFilter默认值false
+        url-pattern: /*             #过滤规则
+        exclusions: “*.gif,*.png,*.jpg,*.html,*.js,*.css,*.ico,/druid/*”
+      stat-view-servlet:             #StatViewServlet配置，说明请参考Druid Wiki，配置_StatViewServlet配置
+        enabled: true                #是否启用StatViewServlet（监控页面）默认值为false（考虑到安全问题默认并未启动，如需启用建议设置密码或白名单以保障安全）
+        login-username: admin    #登陆账号
+        login-password: 12345   #druid的登陆密码
+        reset-enable: false   #表示不允许重置数据源
+        allow: 10.0.0.19,127.0.0.1   #白名单配置
+        deny: 192.168.0.201     #黑名单
+        url-pattern: /druid/*  #登陆该页面允许访问的路径    
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml  #mybatis主配置文件的地址
+  mapper-locations: classpath:mybatis/mapper/**/*.xml  #mybatis映射文件的位置
+  type-aliases-package: com.sun.entity  #实体对象所在的包
+
+logging:
+    level:
+      com.sun.dao: DEBUG
