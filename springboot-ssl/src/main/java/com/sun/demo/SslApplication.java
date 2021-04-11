@@ -40,6 +40,7 @@ public class SslApplication {
 		tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
 		return tomcat;
 	}
+
 	/**
 	 * 让我们的应用支持HTTP是个好想法，但是需要重定向到HTTPS，
 	 * 但是不能同时在application.properties中同时配置两个connector，
