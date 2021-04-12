@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "grpc_code/another";
+
+service AnotherService {
+  rpc AnotherHello(AnotherRequest) returns (AnotherReplay);
+}
+
+message  AnotherRequest {
+  string name = 1;
+}
+
+message  AnotherReplay {
+  string message = 1;
+}
