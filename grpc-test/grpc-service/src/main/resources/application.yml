@@ -1,4 +1,3 @@
-#net.devh.boot.grpc.server.config.GrpcServerProperties
 grpc:
   server:
     port: 9091
