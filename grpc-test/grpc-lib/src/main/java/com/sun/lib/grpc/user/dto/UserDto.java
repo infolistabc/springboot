@@ -29,6 +29,11 @@ public final class UserDto {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_sun_lib_grpc_user_dto_AddUserRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_sun_lib_grpc_user_dto_UserList_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_sun_lib_grpc_user_dto_UserList_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -44,7 +49,9 @@ public final class UserDto {
       "\"F\n\014UserResponse\022\n\n\002id\030\001 \001(\005\022\014\n\004name\030\002 \001" +
       "(\t\022\013\n\003age\030\003 \001(\005\022\017\n\007address\030\004 \001(\t\"<\n\016AddU" +
       "serRequest\022\014\n\004name\030\001 \001(\t\022\013\n\003age\030\002 \001(\005\022\017\n" +
-      "\007address\030\003 \001(\tB\002P\001b\006proto3"
+      "\007address\030\003 \001(\t\"I\n\010UserList\022=\n\014userRespon" +
+      "se\030\001 \003(\0132\'.com.sun.lib.grpc.user.dto.Use" +
+      "rResponseB\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -68,6 +75,12 @@ public final class UserDto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_sun_lib_grpc_user_dto_AddUserRequest_descriptor,
         new java.lang.String[] { "Name", "Age", "Address", });
+    internal_static_com_sun_lib_grpc_user_dto_UserList_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_com_sun_lib_grpc_user_dto_UserList_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_sun_lib_grpc_user_dto_UserList_descriptor,
+        new java.lang.String[] { "UserResponse", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

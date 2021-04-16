@@ -30,6 +30,37 @@ public final class UserGrpc {
   public static final String SERVICE_NAME = "com.sun.lib.grpc.user.dto.User";
 
   // Static method descriptors that strictly reflect the proto.
+  private static volatile io.grpc.MethodDescriptor<com.sun.lib.grpc.user.dto.AddUserRequest,
+      com.sun.lib.grpc.user.dto.UserResponse> getAddMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "add",
+      requestType = com.sun.lib.grpc.user.dto.AddUserRequest.class,
+      responseType = com.sun.lib.grpc.user.dto.UserResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.sun.lib.grpc.user.dto.AddUserRequest,
+      com.sun.lib.grpc.user.dto.UserResponse> getAddMethod() {
+    io.grpc.MethodDescriptor<com.sun.lib.grpc.user.dto.AddUserRequest, com.sun.lib.grpc.user.dto.UserResponse> getAddMethod;
+    if ((getAddMethod = UserGrpc.getAddMethod) == null) {
+      synchronized (UserGrpc.class) {
+        if ((getAddMethod = UserGrpc.getAddMethod) == null) {
+          UserGrpc.getAddMethod = getAddMethod =
+              io.grpc.MethodDescriptor.<com.sun.lib.grpc.user.dto.AddUserRequest, com.sun.lib.grpc.user.dto.UserResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "add"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.sun.lib.grpc.user.dto.AddUserRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.sun.lib.grpc.user.dto.UserResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new UserMethodDescriptorSupplier("add"))
+              .build();
+        }
+      }
+    }
+    return getAddMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.sun.lib.grpc.user.dto.SearchUserRequest,
       com.sun.lib.grpc.user.dto.UserResponse> getListMethod;
 
@@ -61,35 +92,35 @@ public final class UserGrpc {
     return getListMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.sun.lib.grpc.user.dto.AddUserRequest,
-      com.sun.lib.grpc.user.dto.UserResponse> getAddMethod;
+  private static volatile io.grpc.MethodDescriptor<com.sun.lib.grpc.user.dto.SearchUserRequest,
+      com.sun.lib.grpc.user.dto.UserList> getList1Method;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "add",
-      requestType = com.sun.lib.grpc.user.dto.AddUserRequest.class,
-      responseType = com.sun.lib.grpc.user.dto.UserResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.sun.lib.grpc.user.dto.AddUserRequest,
-      com.sun.lib.grpc.user.dto.UserResponse> getAddMethod() {
-    io.grpc.MethodDescriptor<com.sun.lib.grpc.user.dto.AddUserRequest, com.sun.lib.grpc.user.dto.UserResponse> getAddMethod;
-    if ((getAddMethod = UserGrpc.getAddMethod) == null) {
+      fullMethodName = SERVICE_NAME + '/' + "list1",
+      requestType = com.sun.lib.grpc.user.dto.SearchUserRequest.class,
+      responseType = com.sun.lib.grpc.user.dto.UserList.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+  public static io.grpc.MethodDescriptor<com.sun.lib.grpc.user.dto.SearchUserRequest,
+      com.sun.lib.grpc.user.dto.UserList> getList1Method() {
+    io.grpc.MethodDescriptor<com.sun.lib.grpc.user.dto.SearchUserRequest, com.sun.lib.grpc.user.dto.UserList> getList1Method;
+    if ((getList1Method = UserGrpc.getList1Method) == null) {
       synchronized (UserGrpc.class) {
-        if ((getAddMethod = UserGrpc.getAddMethod) == null) {
-          UserGrpc.getAddMethod = getAddMethod =
-              io.grpc.MethodDescriptor.<com.sun.lib.grpc.user.dto.AddUserRequest, com.sun.lib.grpc.user.dto.UserResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "add"))
+        if ((getList1Method = UserGrpc.getList1Method) == null) {
+          UserGrpc.getList1Method = getList1Method =
+              io.grpc.MethodDescriptor.<com.sun.lib.grpc.user.dto.SearchUserRequest, com.sun.lib.grpc.user.dto.UserList>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "list1"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.sun.lib.grpc.user.dto.AddUserRequest.getDefaultInstance()))
+                  com.sun.lib.grpc.user.dto.SearchUserRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.sun.lib.grpc.user.dto.UserResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new UserMethodDescriptorSupplier("add"))
+                  com.sun.lib.grpc.user.dto.UserList.getDefaultInstance()))
+              .setSchemaDescriptor(new UserMethodDescriptorSupplier("list1"))
               .build();
         }
       }
     }
-    return getAddMethod;
+    return getList1Method;
   }
 
   private static volatile io.grpc.MethodDescriptor<com.sun.lib.grpc.user.dto.AddUserRequest,
@@ -176,6 +207,16 @@ public final class UserGrpc {
 
     /**
      * <pre>
+     *添加用户信息，返回单个对象
+     * </pre>
+     */
+    public void add(com.sun.lib.grpc.user.dto.AddUserRequest request,
+        io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.UserResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getAddMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      *查询用户列表，以流式返回多个对象
      * </pre>
      */
@@ -186,12 +227,12 @@ public final class UserGrpc {
 
     /**
      * <pre>
-     *添加用户信息，返回单个对象
+     *查询用户列表，返回多个实体对象
      * </pre>
      */
-    public void add(com.sun.lib.grpc.user.dto.AddUserRequest request,
-        io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.UserResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getAddMethod(), responseObserver);
+    public io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.SearchUserRequest> list1(
+        io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.UserList> responseObserver) {
+      return asyncUnimplementedStreamingCall(getList1Method(), responseObserver);
     }
 
     /**
@@ -207,6 +248,13 @@ public final class UserGrpc {
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
+            getAddMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.sun.lib.grpc.user.dto.AddUserRequest,
+                com.sun.lib.grpc.user.dto.UserResponse>(
+                  this, METHODID_ADD)))
+          .addMethod(
             getListMethod(),
             asyncServerStreamingCall(
               new MethodHandlers<
@@ -214,12 +262,12 @@ public final class UserGrpc {
                 com.sun.lib.grpc.user.dto.UserResponse>(
                   this, METHODID_LIST)))
           .addMethod(
-            getAddMethod(),
-            asyncUnaryCall(
+            getList1Method(),
+            asyncClientStreamingCall(
               new MethodHandlers<
-                com.sun.lib.grpc.user.dto.AddUserRequest,
-                com.sun.lib.grpc.user.dto.UserResponse>(
-                  this, METHODID_ADD)))
+                com.sun.lib.grpc.user.dto.SearchUserRequest,
+                com.sun.lib.grpc.user.dto.UserList>(
+                  this, METHODID_LIST1)))
           .addMethod(
             getAddBatchMethod(),
             asyncBidiStreamingCall(
@@ -250,6 +298,17 @@ public final class UserGrpc {
 
     /**
      * <pre>
+     *添加用户信息，返回单个对象
+     * </pre>
+     */
+    public void add(com.sun.lib.grpc.user.dto.AddUserRequest request,
+        io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.UserResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getAddMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      *查询用户列表，以流式返回多个对象
      * </pre>
      */
@@ -261,13 +320,13 @@ public final class UserGrpc {
 
     /**
      * <pre>
-     *添加用户信息，返回单个对象
+     *查询用户列表，返回多个实体对象
      * </pre>
      */
-    public void add(com.sun.lib.grpc.user.dto.AddUserRequest request,
-        io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.UserResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getAddMethod(), getCallOptions()), request, responseObserver);
+    public io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.SearchUserRequest> list1(
+        io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.UserList> responseObserver) {
+      return asyncClientStreamingCall(
+          getChannel().newCall(getList1Method(), getCallOptions()), responseObserver);
     }
 
     /**
@@ -301,6 +360,16 @@ public final class UserGrpc {
 
     /**
      * <pre>
+     *添加用户信息，返回单个对象
+     * </pre>
+     */
+    public com.sun.lib.grpc.user.dto.UserResponse add(com.sun.lib.grpc.user.dto.AddUserRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getAddMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      *查询用户列表，以流式返回多个对象
      * </pre>
      */
@@ -308,16 +377,6 @@ public final class UserGrpc {
         com.sun.lib.grpc.user.dto.SearchUserRequest request) {
       return blockingServerStreamingCall(
           getChannel(), getListMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     *添加用户信息，返回单个对象
-     * </pre>
-     */
-    public com.sun.lib.grpc.user.dto.UserResponse add(com.sun.lib.grpc.user.dto.AddUserRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getAddMethod(), getCallOptions(), request);
     }
   }
 
@@ -350,9 +409,10 @@ public final class UserGrpc {
     }
   }
 
-  private static final int METHODID_LIST = 0;
-  private static final int METHODID_ADD = 1;
-  private static final int METHODID_ADD_BATCH = 2;
+  private static final int METHODID_ADD = 0;
+  private static final int METHODID_LIST = 1;
+  private static final int METHODID_LIST1 = 2;
+  private static final int METHODID_ADD_BATCH = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -371,12 +431,12 @@ public final class UserGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_LIST:
-          serviceImpl.list((com.sun.lib.grpc.user.dto.SearchUserRequest) request,
-              (io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.UserResponse>) responseObserver);
-          break;
         case METHODID_ADD:
           serviceImpl.add((com.sun.lib.grpc.user.dto.AddUserRequest) request,
+              (io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.UserResponse>) responseObserver);
+          break;
+        case METHODID_LIST:
+          serviceImpl.list((com.sun.lib.grpc.user.dto.SearchUserRequest) request,
               (io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.UserResponse>) responseObserver);
           break;
         default:
@@ -389,6 +449,9 @@ public final class UserGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_LIST1:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.list1(
+              (io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.UserList>) responseObserver);
         case METHODID_ADD_BATCH:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.addBatch(
               (io.grpc.stub.StreamObserver<com.sun.lib.grpc.user.dto.UserResponse>) responseObserver);
@@ -443,8 +506,9 @@ public final class UserGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new UserFileDescriptorSupplier())
-              .addMethod(getListMethod())
               .addMethod(getAddMethod())
+              .addMethod(getListMethod())
+              .addMethod(getList1Method())
               .addMethod(getAddBatchMethod())
               .build();
         }

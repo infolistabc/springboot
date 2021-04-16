@@ -11,7 +11,6 @@ public class TestClass {
         addUser.addPhone("11111");
         addUser.addPhone("22222");
         addUser.setAddress("测试地址");
-        addUser.setSex(AddUser.Sex.MALE);
         addUser.build();
         System.out.printf("输出\n"+addUser.build());
     }

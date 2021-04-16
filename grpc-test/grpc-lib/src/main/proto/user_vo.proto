@@ -33,10 +33,4 @@ message AddUser {
   int32 age =2;
   string address = 3;
   repeated string phone=4;
-  enum Sex {
-      OTHER=0;
-      MALE=1;
-      FEMALE=2;
-  }
-  Sex sex = 5;
 }

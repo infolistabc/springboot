@@ -29,3 +29,7 @@ message AddUserRequest {
   int32 age =2;
   string address = 3;
 }
+//返回用户的List
+message UserList{
+  repeated UserResponse userResponse=1;
+}

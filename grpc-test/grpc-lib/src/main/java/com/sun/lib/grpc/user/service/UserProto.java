@@ -24,16 +24,18 @@ public final class UserProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\022user_service.proto\022\031com.sun.lib.grpc.u" +
-      "ser.dto\032\016user_dto.proto2\254\002\n\004User\022a\n\004list" +
-      "\022,.com.sun.lib.grpc.user.dto.SearchUserR" +
-      "equest\032\'.com.sun.lib.grpc.user.dto.UserR" +
-      "esponse\"\0000\001\022[\n\003add\022).com.sun.lib.grpc.us" +
-      "er.dto.AddUserRequest\032\'.com.sun.lib.grpc" +
-      ".user.dto.UserResponse\"\000\022d\n\010addBatch\022).c" +
-      "om.sun.lib.grpc.user.dto.AddUserRequest\032" +
-      "\'.com.sun.lib.grpc.user.dto.UserResponse" +
-      "\"\000(\0010\001B,\n\035com.sun.lib.grpc.user.serviceB" +
-      "\tUserProtoP\001b\006proto3"
+      "ser.dto\032\016user_dto.proto2\214\003\n\004User\022[\n\003add\022" +
+      ").com.sun.lib.grpc.user.dto.AddUserReque" +
+      "st\032\'.com.sun.lib.grpc.user.dto.UserRespo" +
+      "nse\"\000\022a\n\004list\022,.com.sun.lib.grpc.user.dt" +
+      "o.SearchUserRequest\032\'.com.sun.lib.grpc.u" +
+      "ser.dto.UserResponse\"\0000\001\022^\n\005list1\022,.com." +
+      "sun.lib.grpc.user.dto.SearchUserRequest\032" +
+      "#.com.sun.lib.grpc.user.dto.UserList\"\000(\001" +
+      "\022d\n\010addBatch\022).com.sun.lib.grpc.user.dto" +
+      ".AddUserRequest\032\'.com.sun.lib.grpc.user." +
+      "dto.UserResponse\"\000(\0010\001B,\n\035com.sun.lib.gr" +
+      "pc.user.serviceB\tUserProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -1,4 +1,4 @@
-#net.devh.boot.grpc.server.config.GrpcServerProperties
+#net.devh.boot.grpc.client.config.GrpcServerProperties
 grpc:
   client:
     userClient:

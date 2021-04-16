@@ -18,15 +18,12 @@ option java_outer_classname = "UserProto";
 
 //服务定义
 service User {
-
-  //查询用户列表，以流式返回多个对象
-  rpc list (SearchUserRequest) returns (stream UserResponse) {}
-
   //添加用户信息，返回单个对象
   rpc add (AddUserRequest) returns (UserResponse) {}
-
-  //批量添加用户
+  //查询用户列表，以流式返回多个对象
+  rpc list (SearchUserRequest) returns (stream UserResponse) {}
+  //客户端流式请求，返回非流式的对象
+  rpc list1 (stream SearchUserRequest) returns (UserList){}
+  //客户端流式请求，返回流式响应
   rpc addBatch (stream AddUserRequest) returns (stream UserResponse) {}
-
-
 }
