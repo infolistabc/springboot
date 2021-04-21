@@ -1,0 +1,12 @@
+server:
+  port: 9091
+
+spring:
+  application:
+    name: wechat-callback-server
+
+#自定义微信的配置参数
+wechat:
+  token: NNxVQWocyj2RbmgxFgDFC
+  encodingAESKey: X9f15EBdTlizMmULtafJhWL6
+  corpId: ww15a75a9b9
