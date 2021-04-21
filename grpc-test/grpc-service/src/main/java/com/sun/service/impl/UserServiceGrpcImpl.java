@@ -41,7 +41,9 @@ public class UserServiceGrpcImpl extends UserGrpc.UserImplBase {
         //构造rpc响应参数
         UserResponse reply = UserResponse.newBuilder().setId(ud.getId()).setName(request.getName()).setAge(ud.getAge())
             .setAddress(ud.getAddress()).build();
+        //发送响应数据
         responseObserver.onNext(reply);
+        //关闭通道
         responseObserver.onCompleted();
     }
 
@@ -101,7 +103,7 @@ public class UserServiceGrpcImpl extends UserGrpc.UserImplBase {
             public void onError(Throwable throwable) {
                 log.info("list StreamObserver onError："+throwable.getMessage(), throwable);
             }
-
+            //
             @Override
             public void onCompleted() {
                 responseObserver.onNext(userListBuilder.build());

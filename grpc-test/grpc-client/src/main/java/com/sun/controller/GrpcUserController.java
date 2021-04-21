@@ -27,6 +27,7 @@ public class GrpcUserController {
     @GrpcClient("userClient")
     UserGrpc.UserStub userStub;
 
+    UserGrpc.UserFutureStub futureStub;
     @PostMapping("/add")
     public String add(@RequestBody UserDemo userDemo) {
         //构造grpc的请求体对象
@@ -38,6 +39,7 @@ public class GrpcUserController {
             log.error("RPC failed: " + e.getMessage(), e);
             throw e;
         }
+        log.info("结果"+response);
         return JSONObject.toJSONString(response.getName());
     }
 
@@ -65,23 +67,24 @@ public class GrpcUserController {
     }
 
     @GetMapping("list1")
-    public void getUserList1(@RequestParam("name") String name){
+    public void getUserList1(@RequestParam("name") String name) {
 
         StreamObserver<UserList> userList = new StreamObserver<UserList>() {
             /**
              * 每当服务端响应的时候，会回调该方法一次
+             *
              * @param userList
              */
             @Override
             public void onNext(UserList userList) {
-                userList.getUserResponseList().forEach(u ->{
-                    log.info("返回结果{}",u);
+                userList.getUserResponseList().forEach(userResponse -> {
+                    log.info("返回结果{}", userResponse);
                 });
             }
 
             @Override
             public void onError(Throwable throwable) {
-                log.info("list1 StreamObserver onError："+throwable.getMessage(), throwable);
+                log.info("list1 StreamObserver onError：" + throwable.getMessage(), throwable);
             }
 
             @Override
@@ -91,6 +94,7 @@ public class GrpcUserController {
         };
         //向服务端发送异步请求
         StreamObserver<SearchUserRequest> searchUserRequestStreamObserver = userStub.list1(userList);
+
         //构造传递给服务端的参数，流式发送给服务端
         searchUserRequestStreamObserver.onNext(SearchUserRequest.newBuilder().setName(name).build());
         searchUserRequestStreamObserver.onNext(SearchUserRequest.newBuilder().setName(name).build());
@@ -120,15 +124,16 @@ public class GrpcUserController {
 
             }
         });
+        //StreamObserver<AddUserRequest> addUserRequestStreamObserver = userStub.addBatch(responseObserver);
         //模拟发送数据给服务端
         for (int i = 0; i < 5; i++) {
             addUserRequestStreamObserver.onNext(AddUserRequest.newBuilder()
-                    .setAddress("测试"+i)
                     .setAge(1)
                     .setAddress("address"+i)
                     .setName("name"+i)
                     .build());
         }
+
         addUserRequestStreamObserver.onCompleted();
     }
 }
