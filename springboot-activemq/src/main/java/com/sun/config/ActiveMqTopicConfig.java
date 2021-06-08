@@ -1,16 +1,18 @@
 package com.sun.config;
 
-import org.apache.activemq.command.ActiveMQQueue;
+import com.sun.vo.Message;
+import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
-import com.sun.vo.Message;
+import javax.annotation.Resource;
+import javax.jms.Topic;
 
-import javax.jms.Queue;
 /**
  * activemq配置类
  * 创建不同的队列进行消息的生产和消费
@@ -18,57 +20,54 @@ import javax.jms.Queue;
  *
  */
 @Component
-public class ActivemqConfig {
+public class ActiveMqTopicConfig {
 	/**
 	 * JmsMessagingTemplate 有Spring提供的JMS消息发送模板，用来快速的发送消息
 	 */
     @Autowired
     JmsMessagingTemplate messagingTemplate;
+
+    @Resource
+    private JmsTemplate jmsTemplate;
+
     @Autowired
-    @Qualifier("queue")
-    Queue queue;
-    @Autowired
-    @Qualifier("queue2")
-    Queue queue2;
+    @Qualifier("topic")
+    private Topic topic;
+
     /**
      * 创建一个amq的队列
      * @return
      */
     @Bean
-    public Queue queue() {
-        return new ActiveMQQueue("amq");
+    public Topic topic() {
+        return new ActiveMQTopic("topic");
     }
-    /**
-     * 创建一个amq2的队列
-     * @return
-     */
-    @Bean
-    public Queue queue2() {
-        return new ActiveMQQueue("amq2");
-    }
+
     /**
      * 提供给生产者生产消息到
      * @param msg
      */
-    public void send(Message msg) {
-        messagingTemplate.convertAndSend(this.queue, msg);
-        messagingTemplate.convertAndSend(this.queue2, msg);
+    public void sendTopic(Message msg) {
+        messagingTemplate.convertAndSend(this.topic, msg);
     }
     /**
      * 消费者订阅主题为amq的消息并消费消息
      * @JmsListener  该注解表示该方法是消息消费者，消息消费者订阅的destination是amq
      * @param msg
      */
-    @JmsListener(destination = "amq")
-    public void receive(Message msg) {
-        System.out.println("receive:" + msg);
+    @JmsListener(destination = "topic")
+    public void topicConsumer1(Message msg) {
+        System.out.println("topicConsumer1:" + msg);
     }
+
     /**
-     * 消费者订阅主题为amq2的消息并消费消息
+     * 消费者订阅主题为amq的消息并消费消息
+     * @JmsListener  该注解表示该方法是消息消费者，消息消费者订阅的destination是amq
      * @param msg
      */
-    @JmsListener(destination = "amq2")
-    public void receive2(Message msg) {
-        System.out.println("receive2:" + msg);
+    @JmsListener(destination = "topic")
+    public void topicConsumer2(Message msg) {
+        System.out.println("topicConsumer2:" + msg);
     }
+
 }

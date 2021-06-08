@@ -26,7 +26,17 @@ spring:
         reset-enable: false   #表示不允许重置数据源
         allow: 10.0.0.19,127.0.0.1   #白名单配置
         deny: 192.168.0.201     #黑名单
-        url-pattern: /druid/*  #登陆该页面允许访问的路径    
+        url-pattern: /druid/*  #登陆该页面允许访问的路径
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: 8
+        min-idle: 8
+      shutdown-timeout: 100
 mybatis:
   config-location: classpath:mybatis/mybatis.cfg.xml  #mybatis主配置文件的地址
   mapper-locations: classpath:mybatis/mapper/**/*.xml  #mybatis映射文件的位置

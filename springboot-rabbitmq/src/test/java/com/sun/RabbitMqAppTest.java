@@ -21,10 +21,19 @@ public class RabbitMqAppTest {
 	@Test
 	public void testDirect() {
 		//发送消息到交换器即可，它会负责转发到指定的队列
-		List list = new ArrayList<>();
-		list.add("uid");
-		list.add("pid");
-		this.rabbitTemplate.convertAndSend("direct-queue", list);
+		while (true){
+			try {
+				List list = new ArrayList<>();
+				list.add("uid");
+				list.add("pid");
+				this.rabbitTemplate.convertAndSend("direct-queue", list);
+				Thread.sleep(1000L);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+
+		}
+
 	}
 	@Test
 	public void testFanout() {

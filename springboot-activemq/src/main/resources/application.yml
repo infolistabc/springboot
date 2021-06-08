@@ -2,8 +2,10 @@ server:
   port: 80
 spring:
   activemq:
-    broker-url: tcp://10.4.21.42:61616
+    broker-url: tcp://localhost:61616
     packages:
       trust-all: true
     user: admin
     password: admin
+  jms:
+    pub-sub-domain: true #true为topic模式（发布与订阅）false为点对点模式（queue）
