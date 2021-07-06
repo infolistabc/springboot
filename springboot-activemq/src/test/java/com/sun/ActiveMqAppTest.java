@@ -22,10 +22,14 @@ public class ActiveMqAppTest {
 
     @Test
     public void testQueue() {
-        Message msg = new Message();
-        msg.setContent("hello jms!");
-        msg.setDate(new Date());
-        queueConfig.send(msg);
+        int i=1000;
+        while (i<=1000){
+            Message msg = new Message();
+            msg.setContent("hello jms!");
+            msg.setDate(new Date());
+            queueConfig.send(msg);
+            i--;
+        }
     }
 
     @Test

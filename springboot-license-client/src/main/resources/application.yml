@@ -1,0 +1,6 @@
+server:
+  port: 8021
+spring:
+  application:
+    name: license-client
+

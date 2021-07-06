@@ -49,7 +49,7 @@ public class QueueConfig {
      * @JmsListener  该注解表示该方法是消息消费者，消息消费者订阅的destination是amq
      * @param msg
      */
-    @JmsListener(destination = "amq")
+    //@JmsListener(destination = "amq")
     public void receive(Message msg) {
         System.out.println("receive:" + msg);
     }

@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: license-server
+server:
+  port: 8090
