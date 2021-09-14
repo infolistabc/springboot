@@ -45,6 +45,18 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.9</version>
 		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.74</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hyperic/sigar -->
+		<dependency>
+			<groupId>org.hyperic</groupId>
+			<artifactId>sigar</artifactId>
+			<version>1.6.5.132</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

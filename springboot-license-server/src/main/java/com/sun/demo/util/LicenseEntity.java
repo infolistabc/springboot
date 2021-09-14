@@ -10,6 +10,7 @@ package com.sun.demo.util;
 
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * License 信息实体类
@@ -82,4 +83,15 @@ public final class LicenseEntity implements Serializable {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "LicenseEntity{" +
+                "splitFlag=" + Arrays.toString(splitFlag) +
+                ", publicKeys=" + Arrays.toString(publicKeys) +
+                ", applyTime=" + applyTime +
+                ", expireTime=" + expireTime +
+                ", md5='" + md5 + '\'' +
+                ", data=" + Arrays.toString(data) +
+                '}';
+    }
 }

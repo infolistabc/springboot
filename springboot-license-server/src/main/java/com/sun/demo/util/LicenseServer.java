@@ -8,13 +8,10 @@
 
 package com.sun.demo.util;
 
-import org.apache.commons.cli.*;
-import org.apache.commons.io.IOUtils;
-
+import com.sun.demo.license.Base64Utils;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
-import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
@@ -84,7 +81,12 @@ public class LicenseServer {
     private void createLicense(LicenseEntity entity, KeyPair keyPair) throws Exception {
         //生成License
         try (FileOutputStream fileOutputStream = new FileOutputStream(licenseFile)) {
+            System.out.println(entity);
             LicenseEncode licenseEncode = new LicenseEncode();
+            //对实体进行加密
+            System.out.println("HHHHHHHHH"+ Base64Utils.encode(licenseEncode.encode(entity, RasUtil.getPrivateKey(keyPair))));
+
+            System.out.println("TTTTTTT"+Base64.getEncoder().encodeToString(licenseEncode.encode(entity, RasUtil.getPrivateKey(keyPair))));
             fileOutputStream.write(Base64.getEncoder().encodeToString(licenseEncode.encode(entity, RasUtil.getPrivateKey(keyPair))).getBytes(StandardCharsets.UTF_8));
         }
     }
