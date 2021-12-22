@@ -1,0 +1,12 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: demo67
+
+study:
+  config:
+    enable: true
+    name: test
+    age: 1
