@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8081
 
 spring:
   application:
@@ -10,3 +10,10 @@ study:
     enable: true
     name: test
     age: 1
+
+ignore:
+  urls:
+    - add
+    - update
+    - delete
+    - list
