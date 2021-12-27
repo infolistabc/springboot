@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     username: root
-    password: wilson443158
-    url: jdbc:mysql://localhost:3306/viid?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    password: qianwilson@91
+    url: jdbc:mysql://120.77.81.64:3306/admin?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   jpa:
@@ -15,8 +15,16 @@ spring:
       ddl-auto: update  #更新数据库
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-
-      
-    
+#redis连接配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: 8
+        min-idle: 8
+      shutdown-timeout: 100
   
   

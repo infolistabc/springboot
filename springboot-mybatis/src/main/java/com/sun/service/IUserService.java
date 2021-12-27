@@ -14,4 +14,5 @@ public interface IUserService {
 	boolean adduser(User user);
 
 	List<User> queryPage();
+
 }

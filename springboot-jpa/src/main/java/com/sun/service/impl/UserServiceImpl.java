@@ -3,6 +3,9 @@ package com.sun.service.impl;
 import java.util.List;
 import java.util.Optional;
 import javax.annotation.Resource;
+
+import com.sun.util.RedisLockUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,12 @@ import com.sun.service.IUserService;
 public class UserServiceImpl implements IUserService{
 	@Resource
 	private IUserDao iUserDao;
+
+	@Autowired
+	private RedisLockUtil redisLockUtil;
+
+	private static final int TIMEOUT = 10 * 1000;// 超时时间 10s
+
 	@Override
 	public boolean addUser(User user) {
 		return this.iUserDao.save(user)!=null;
@@ -45,5 +54,22 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public User getUserByName(String name) {
 		return this.iUserDao.findByName(name);
+	}
+
+	@Override
+	public String register(User user) {
+
+		long time = System.currentTimeMillis() + TIMEOUT;
+		if (!redisLockUtil.lock(user.getPhone(),String.valueOf(time))){
+			return "手机号已注册";
+		}
+		List<User> users = iUserDao.findByPhone(user.getPhone());
+		if (!users.isEmpty()){
+			System.out.println("用户已存在");
+			return "用户已存在";
+		}
+		this.iUserDao.save(user);
+		redisLockUtil.unlock(user.getPhone(),String.valueOf(time));
+		return "注册成功";
 	}
 }

@@ -50,4 +50,6 @@ public interface IUserService {
 	 * @return  返回用户对象
 	 */
 	User getUserByName(String name);
+
+	String register(User user);
 }

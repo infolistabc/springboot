@@ -17,7 +17,7 @@ import com.sun.service.IUserService;
 @RequestMapping("user")
 public class UserController {
 	@Resource
-	private IUserService iUserervice;
+	private IUserService iUserService;
 
 	@PostMapping("/add")
 	public String addUser() {
@@ -25,13 +25,13 @@ public class UserController {
 		user.setName("李四");
 		user.setAge(12);
 		user.setCreateTime(new Date());
-		this.iUserervice.adduser(user);
+		this.iUserService.adduser(user);
 		return "成功";
 	}
 	@GetMapping("/list")
 	public PageInfo<User> queryPage() {
 		 PageHelper.startPage(1, 2);
-		 List<User> list = iUserervice.queryPage();
+		 List<User> list = iUserService.queryPage();
 		 PageInfo<User> page = new PageInfo<User>(list);
 		 return page;
 	}

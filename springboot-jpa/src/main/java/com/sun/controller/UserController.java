@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sun.entity.User;
@@ -31,7 +33,6 @@ public class UserController {
 	@RequestMapping("/update")
 	public String updataUser() {
 		User user = new User();
-		user.setUid(12);
 		user.setName("王五");
 		user.setAge(33);
 		user.setCreateTime(new Date());
@@ -62,5 +63,10 @@ public class UserController {
 	@RequestMapping("/listByName")
 	public User getUserByName() {
 		return this.iUserervice.getUserByName("张三");
+	}
+
+	@PostMapping("/register")
+	public void register(@RequestBody User user){
+		iUserervice.register(user);
 	}
 }

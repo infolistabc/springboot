@@ -13,10 +13,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(columnDefinition = "int(20) comment '用户编号'")
-	private Integer uid;
 	private String name;
 	private Integer age;
+	private String phone;
 	private Date createTime;
 	private Date updateTime;
 	private String sex;
