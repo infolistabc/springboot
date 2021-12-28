@@ -1,0 +1,9 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: es-service
+  elasticsearch:
+    rest:
+      uris: http://81.71.3.238:9200
