@@ -3,8 +3,8 @@ spring:
   datasource:
     # 使用druid数据源
     username: root
-    password: wilson443158
-    url: jdbc:mysql://localhost:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    password: qianwilson@91
+    url: jdbc:mysql://120.77.81.64:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:                  #连接池配置

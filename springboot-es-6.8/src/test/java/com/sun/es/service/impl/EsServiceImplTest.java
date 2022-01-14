@@ -12,7 +12,10 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.index.query.*;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.index.reindex.BulkByScrollResponse;
 import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -48,7 +51,7 @@ public class EsServiceImplTest {
         //创建文档索引
         IndexRequest indexRequest = new IndexRequest("posts");
         //文档id
-        //indexRequest.id("7");
+        indexRequest.id("7");
         String jsonString = "{" +
                 "\"user\":\"test\"," +
                 "\"postDate\":\"2013-01-26\"," +
@@ -64,34 +67,34 @@ public class EsServiceImplTest {
      * 更新文档
      * @throws IOException
      */
-    @Test
-    public void updateIndex() throws IOException {
-        //创建文档索引
-        UpdateRequest updateRequest = new UpdateRequest("posts" ,"7");
-        //文档id
-        String jsonString = "{" +
-                "\"user\":\"test\"," +
-                "\"postDate\":\"2013-01-26\"," +
-                "\"message\":\"update test\"" +
-                "}";
-        //文档内容
-        updateRequest.doc(jsonString, XContentType.JSON);
-        UpdateResponse resp = esService.update(updateRequest);
-        log.info("更新返回结果：{}",resp);
-    }
+//    @Test
+//    public void updateIndex() throws IOException {
+//        //创建文档索引
+//        UpdateRequest updateRequest = new UpdateRequest("posts" ,"7");
+//        //文档id
+//        String jsonString = "{" +
+//                "\"user\":\"test\"," +
+//                "\"postDate\":\"2013-01-26\"," +
+//                "\"message\":\"update test\"" +
+//                "}";
+//        //文档内容
+//        updateRequest.doc(jsonString, XContentType.JSON);
+//        UpdateResponse resp = esService.update(updateRequest);
+//        log.info("更新返回结果：{}",resp);
+//    }
 
     /**
      * 删除
      * @throws IOException
      */
-    @Test
-    public void delete() throws IOException {
-        //创建文档索引
-        DeleteRequest deleteRequest = new DeleteRequest("posts" ,"7");
-        //文档内容
-        DeleteResponse resp = esService.delete(deleteRequest);
-        log.info("删除返回结果：{}",resp);
-    }
+//    @Test
+//    public void delete() throws IOException {
+//        //创建文档索引
+//        DeleteRequest deleteRequest = new DeleteRequest("posts" ,"7");
+//        //文档内容
+//        DeleteResponse resp = esService.delete(deleteRequest);
+//        log.info("删除返回结果：{}",resp);
+//    }
 
     /**
      * 删除
@@ -115,7 +118,7 @@ public class EsServiceImplTest {
      */
     @Test
     public void search() throws IOException {
-        SearchRequest searchRequest = new SearchRequest("mobile_index");
+        SearchRequest searchRequest = new SearchRequest("posts");
         SearchResponse response = esService.search(searchRequest);
         log.info("查询返回结果：{}",response);
     }
@@ -126,95 +129,13 @@ public class EsServiceImplTest {
      */
     @Test
     public void searchByContext() throws IOException {
-        SearchRequest searchRequest = new SearchRequest("mobile_index");
-
+        SearchRequest searchRequest = new SearchRequest("sg-site-2021.12.29");
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.matchAllQuery());
-        SearchResponse response = esService.search(searchRequest);
-        log.info("查询返回结果：{}",response);
-    }
-
-    /**
-     * 匹配搜索-or条件查询
-     * @throws IOException
-     */
-    @Test
-    public void searchByMatchOr() throws IOException {
-        SearchRequest searchRequest = new SearchRequest("mobile_index");
-
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.matchQuery("title","小米电视4A"));
         searchRequest.source(searchSourceBuilder);
-
         SearchResponse response = esService.search(searchRequest);
         log.info("查询返回结果：{}",response);
     }
-
-    /**
-     * 匹配搜索-and条件查询
-     * @throws IOException
-     */
-    @Test
-    public void searchByMatchAnd() throws IOException {
-        SearchRequest searchRequest = new SearchRequest("mobile_index");
-
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.matchQuery("title","小米电视4A").operator(Operator.AND));
-        searchRequest.source(searchSourceBuilder);
-
-        SearchResponse response = esService.search(searchRequest);
-        log.info("查询返回结果：{}",response);
-    }
-
-    /**
-     * 短语搜索
-     * @throws IOException
-     */
-    @Test
-    public void searchByMatchPhrase() throws IOException {
-        SearchRequest searchRequest = new SearchRequest("mobile_index");
-
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.matchPhraseQuery("title","小米 4A").slop(2));
-        searchRequest.source(searchSourceBuilder);
-
-        SearchResponse response = esService.search(searchRequest);
-        log.info("查询返回结果：{}",response);
-    }
-
-    /**
-     * Query String 无需指定字段的全文搜索，同时也支持指定字段进行搜索匹配
-     * @throws IOException
-     */
-    @Test
-    public void searchByQueryString() throws IOException {
-        SearchRequest searchRequest = new SearchRequest("mobile_index");
-
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.queryStringQuery("3699").defaultField("price"));
-        searchRequest.source(searchSourceBuilder);
-
-        SearchResponse response = esService.search(searchRequest);
-        log.info("查询返回结果：{}",response);
-    }
-
-    /**
-     * Query String 多字段查询，也可以使用*匹配多个字段
-     * @throws IOException
-     */
-    @Test
-    public void searchByMultiMatch() throws IOException {
-        SearchRequest searchRequest = new SearchRequest("mobile_index");
-
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.multiMatchQuery("2639*","price","title"));
-        searchRequest.source(searchSourceBuilder);
-
-        SearchResponse response = esService.search(searchRequest);
-        log.info("查询返回结果：{}",response);
-    }
-
-
 
     /**
      * 查询所有user字段且包含test的文档
