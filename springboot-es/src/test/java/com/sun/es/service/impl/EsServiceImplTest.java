@@ -11,6 +11,7 @@ import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.index.reindex.BulkByScrollResponse;
@@ -214,54 +215,116 @@ public class EsServiceImplTest {
         log.info("查询返回结果：{}",response);
     }
 
-
-
     /**
-     * 查询所有user字段且包含test的文档
+     * 词条搜索/集合搜索
      * @throws IOException
      */
     @Test
-    public void searchByColumn() throws IOException {
+    public void searchByTermQuery() throws IOException {
         SearchRequest searchRequest = new SearchRequest();
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.termQuery("user","test"));
+        //searchSourceBuilder.query(QueryBuilders.termQuery("title","vivo"));
+        searchSourceBuilder.query(QueryBuilders.termsQuery("title","vivo","iphone"));
         searchRequest.source(searchSourceBuilder);
         SearchResponse response = esService.search(searchRequest);
         log.info("查询返回结果：{}",response);
     }
 
     /**
-     * 根据ID查询数据
+     * 范围搜索
+     * @throws IOException
+     */
+    @Test
+    public void searchByRange() throws IOException {
+        SearchRequest searchRequest = new SearchRequest();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.rangeQuery("price").lt(3000));
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse response = esService.search(searchRequest);
+        log.info("查询返回结果：{}",response);
+    }
+
+    /**
+     * 不为空查询搜索
+     * @throws IOException
+     */
+    @Test
+    public void searchByNotBlank() throws IOException {
+        SearchRequest searchRequest = new SearchRequest();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.existsQuery("title"));
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse response = esService.search(searchRequest);
+        log.info("查询返回结果：{}",response);
+    }
+
+    /**
+     * 前缀查询
+     * @throws IOException
+     */
+    @Test
+    public void searchByPrefix() throws IOException {
+        SearchRequest searchRequest = new SearchRequest();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.prefixQuery("title","vi"));
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse response = esService.search(searchRequest);
+        log.info("查询返回结果：{}",response);
+    }
+
+    /**
+     * 通配符搜索
+     * @throws IOException
+     */
+    @Test
+    public void searchByWildcard() throws IOException {
+        SearchRequest searchRequest = new SearchRequest();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.wildcardQuery("title","i*"));
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse response = esService.search(searchRequest);
+        log.info("查询返回结果：{}",response);
+    }
+
+    /**
+     * 正则搜索
+     * @throws IOException
+     */
+    @Test
+    public void searchByRegexp() throws IOException {
+        SearchRequest searchRequest = new SearchRequest();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.regexpQuery("title","i.*"));
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse response = esService.search(searchRequest);
+        log.info("查询返回结果：{}",response);
+    }
+
+    /**
+     * 模糊搜索
+     * @throws IOException
+     */
+    @Test
+    public void searchByFuzzy() throws IOException {
+        SearchRequest searchRequest = new SearchRequest();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.fuzzyQuery("title","vi").fuzziness(Fuzziness.TWO));
+        searchRequest.source(searchSourceBuilder);
+        SearchResponse response = esService.search(searchRequest);
+        log.info("查询返回结果：{}",response);
+    }
+
+    /**
+     * ids搜索
      * @throws IOException
      */
     @Test
     public void searchById() throws IOException {
         SearchRequest searchRequest = new SearchRequest();
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.termQuery("_id",1));
+        searchSourceBuilder.query(QueryBuilders.termQuery("_id","-lQ8Un4BlEAo15wif5It"));
         searchRequest.source(searchSourceBuilder);
         SearchResponse response = esService.search(searchRequest);
         log.info("查询返回结果：{}",response);
     }
-
-    /**
-     * 根据时间段进行数据查询
-     * @throws IOException
-     */
-    @Test
-    public void searchTime() throws IOException {
-        SearchRequest searchRequest = new SearchRequest();
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-
-        //时间查询条件
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        boolQueryBuilder.must(QueryBuilders.rangeQuery("postDate").from("2013-01-28").to("2013-01-29"));
-        searchSourceBuilder.query(boolQueryBuilder);
-
-        searchRequest.source(searchSourceBuilder);
-        SearchResponse response = esService.search(searchRequest);
-        log.info("查询返回结果：{}",response);
-    }
-
-
 }
