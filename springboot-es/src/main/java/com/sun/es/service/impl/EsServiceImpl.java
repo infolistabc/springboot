@@ -67,6 +67,12 @@ public class EsServiceImpl implements EsService {
         return restHighLevelClient.deleteByQuery(deleteByQueryRequest,RequestOptions.DEFAULT);
     }
 
+    @Override
+    public SearchResponse scroll(SearchScrollRequest searchScrollRequest) throws IOException {
+        return restHighLevelClient.scroll(searchScrollRequest,RequestOptions.DEFAULT);
+    }
+
+
     /**
      * 转换 String -> SearchRequest
      *

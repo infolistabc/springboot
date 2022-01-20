@@ -9,13 +9,16 @@ import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchScrollRequest;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.*;
 import org.elasticsearch.index.reindex.BulkByScrollResponse;
 import org.elasticsearch.index.reindex.DeleteByQueryRequest;
+import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -223,8 +226,8 @@ public class EsServiceImplTest {
     public void searchByTermQuery() throws IOException {
         SearchRequest searchRequest = new SearchRequest();
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        //searchSourceBuilder.query(QueryBuilders.termQuery("title","vivo"));
-        searchSourceBuilder.query(QueryBuilders.termsQuery("title","vivo","iphone"));
+        searchSourceBuilder.query(QueryBuilders.termQuery("title","手机"));
+        //searchSourceBuilder.query(QueryBuilders.termsQuery("title","vivo","iphone"));
         searchRequest.source(searchSourceBuilder);
         SearchResponse response = esService.search(searchRequest);
         log.info("查询返回结果：{}",response);
@@ -240,6 +243,7 @@ public class EsServiceImplTest {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.rangeQuery("price").lt(3000));
         searchRequest.source(searchSourceBuilder);
+
         SearchResponse response = esService.search(searchRequest);
         log.info("查询返回结果：{}",response);
     }
@@ -326,5 +330,36 @@ public class EsServiceImplTest {
         searchRequest.source(searchSourceBuilder);
         SearchResponse response = esService.search(searchRequest);
         log.info("查询返回结果：{}",response);
+    }
+
+    /**
+     * 分页查询
+     * @throws IOException
+     */
+    @Test
+    public void scroll() throws IOException {
+        //todo：初始化scroll
+        //失效时间为1min
+        Scroll scroll = new Scroll(TimeValue.timeValueMinutes(50L));
+        SearchRequest searchRequest = new SearchRequest("mobile_index");
+        //查询条件
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        //searchSourceBuilder.query(QueryBuilders.matchQuery("title","小米电视4A"));
+        //分页参数
+        searchSourceBuilder.size(2);
+        searchRequest.source(searchSourceBuilder);
+        //封存快照
+        searchRequest.scroll(scroll);
+
+        SearchResponse response = esService.search(searchRequest);
+        log.info("初始化scroll：{}",response);
+
+        //todo：遍历
+        SearchScrollRequest searchScrollRequest = new SearchScrollRequest();
+        searchScrollRequest.scrollId(response.getScrollId());
+        searchScrollRequest.scroll(scroll);
+
+        SearchResponse scrollResp = esService.scroll(searchScrollRequest);
+        log.info("查询返回结果：{}",scrollResp);
     }
 }

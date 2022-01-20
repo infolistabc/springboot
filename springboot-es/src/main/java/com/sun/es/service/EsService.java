@@ -6,6 +6,7 @@ import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchScrollRequest;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.index.reindex.BulkByScrollResponse;
@@ -30,4 +31,6 @@ public interface EsService {
     DeleteResponse delete(DeleteRequest deleteRequest) throws IOException;
 
     BulkByScrollResponse deleteByContext(DeleteByQueryRequest deleteByQueryRequest) throws IOException;
+
+    SearchResponse scroll(SearchScrollRequest searchScrollRequest) throws IOException;
 }
