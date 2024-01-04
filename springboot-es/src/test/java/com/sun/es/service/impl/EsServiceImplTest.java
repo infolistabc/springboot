@@ -1,7 +1,9 @@
 package com.sun.es.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sun.es.service.EsService;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexRequest;
@@ -10,8 +12,13 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchScrollRequest;
+import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.indices.*;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
@@ -20,6 +27,7 @@ import org.elasticsearch.index.reindex.BulkByScrollResponse;
 import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.elasticsearch.search.Scroll;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.snapshots.SnapshotShardsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +36,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -45,24 +55,79 @@ public class EsServiceImplTest {
     @Resource
     EsService esService;
 
+    @Resource
+    private RestHighLevelClient restHighLevelClient;
 
 
     @Test
     public void createIndex() throws IOException {
-        //创建文档索引
-        IndexRequest indexRequest = new IndexRequest("posts");
-        //文档id
-        //indexRequest.id("7");
+//        //创建文档索引
+        IndexRequest indexRequest = new IndexRequest("twitter6");
+//        //文档id
         String jsonString = "{" +
-                "\"user\":\"test\"," +
+                "\"bbb\":\"tessst\"," +
                 "\"postDate\":\"2013-01-26\"," +
                 "\"message\":\"trying out Elasticsearch\"" +
                 "}";
         //文档内容
         indexRequest.source(jsonString, XContentType.JSON);
-        IndexResponse resp = esService.createIndex(indexRequest);
+        IndexResponse resp =restHighLevelClient.index(indexRequest,RequestOptions.DEFAULT);
         log.info("创建索引返回结果：{}",resp);
+
+//        CreateIndexRequest request = new CreateIndexRequest("twitter6ff");
+//        request.settings(Settings.builder().put("index.number_of_shards", 3)
+//                .put("index.number_of_replicas", 2));
+//        String str = "{\n" +
+//                "  \"properties\":{\n" +
+//                "\t\"bbb\": {\n" +
+//                "\t\t\"type\": \"text\",\n" +
+//                "\t\t\"store\": \"true\"\n" +
+//                "\t}\n" +
+//                "  }\t\n" +
+//                "}";
+//        request.mapping(str, XContentType.JSON);
+//
+//        // 2、客户端执行请求 IndicesClient,请求后获得响应
+//        CreateIndexResponse createIndexResponse = restHighLevelClient.indices().create(request, RequestOptions.DEFAULT);
+//        System.out.println(createIndexResponse);
     }
+
+    @Test
+    public void queryIndex() throws IOException {
+        GetIndexRequest request = new GetIndexRequest("twitter3");
+
+        // 2、客户端执行请求 IndicesClient,请求后获得响应
+        GetIndexResponse getIndexResponse = restHighLevelClient.indices().get(request, RequestOptions.DEFAULT);
+        String[] indices = getIndexResponse.getIndices();
+        System.out.println(JSONObject.toJSON(indices));
+    }
+
+    @Test
+    public void deleteIndex() throws IOException {
+        DeleteIndexRequest request = new DeleteIndexRequest("twitter3");
+
+        // 2、客户端执行请求 IndicesClient,请求后获得响应
+        AcknowledgedResponse acknowledgedResponse = restHighLevelClient.indices().delete(request, RequestOptions.DEFAULT);
+        System.out.println(acknowledgedResponse.isAcknowledged());
+    }
+
+    @Test
+    public void putMapping() throws IOException {
+        PutMappingRequest request = new PutMappingRequest("twitter3");
+        request.source(
+                "{\n" +
+                        "  \"properties\": {\n" +
+                        "    \"message\": {\n" +
+                        "      \"type\": \"text\"\n" +
+                        "    }\n" +
+                        "  }\n" +
+                        "}",
+                XContentType.JSON);
+        AcknowledgedResponse acknowledgedResponse = restHighLevelClient.indices().putMapping(request, RequestOptions.DEFAULT);
+        System.out.println(acknowledgedResponse.isAcknowledged());
+    }
+
+
 
     /**
      * 更新文档
@@ -91,7 +156,7 @@ public class EsServiceImplTest {
     @Test
     public void delete() throws IOException {
         //创建文档索引
-        DeleteRequest deleteRequest = new DeleteRequest("posts" ,"7");
+        DeleteRequest deleteRequest = new DeleteRequest("blog8rr" ,"HLAOfYIBOBSYCKYbU5FC");
         //文档内容
         DeleteResponse resp = esService.delete(deleteRequest);
         log.info("删除返回结果：{}",resp);

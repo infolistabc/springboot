@@ -17,18 +17,19 @@ import com.sun.vo.Message;
 public class ActiveMqAppTest {
 	@Autowired
     QueueConfig queueConfig;
+
     @Autowired
     ActiveMqTopicConfig topicConfig;
 
     @Test
     public void testQueue() {
-        int i=1000;
-        while (i<=1000){
+        int i=10;
+        while (i<=10){
             Message msg = new Message();
             msg.setContent("hello jms!");
             msg.setDate(new Date());
             queueConfig.send(msg);
-            i--;
+           // i--;
         }
     }
 

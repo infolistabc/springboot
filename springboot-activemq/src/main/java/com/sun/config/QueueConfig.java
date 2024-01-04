@@ -24,6 +24,7 @@ public class QueueConfig {
 	 */
     @Autowired
     JmsMessagingTemplate messagingTemplate;
+
     @Autowired
     @Qualifier("queue")
     Queue queue;

@@ -6,4 +6,4 @@ spring:
     name: es-service
   elasticsearch:
     rest:
-      uris: http://81.71.3.238:9200
+      uris: http://175.178.185.107:9200
